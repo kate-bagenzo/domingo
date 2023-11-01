@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import Draggable from 'react-draggable';
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import './App.scss';
 
-function Card() {
+function Card({ moveOff }) {
   const [text, setText] = useState("new card");
   const [edit, setEdit] = useState(false);
   const handleEdit = (e) => {
@@ -13,13 +14,17 @@ function Card() {
   return (
     <>
       <Draggable
-        grid={[20, 20]}>
+        grid={[20, 20]}
+        onMouseDown={moveOff}
+      >
         {edit ? (
           <div onDoubleClick={handleEdit} className="card">
             <textarea autoFocus={true} value={text} onChange={e => setText(e.target.value)}></textarea>
           </div>
         ) : (
-          <div onDoubleClick={handleEdit} className="card">{text}</div>
+          <div onDoubleClick={handleEdit} className="card">
+            {text}
+          </div>
         )}
       </Draggable >
     </>
@@ -28,13 +33,27 @@ function Card() {
 
 function Board() {
   const [deck, setDeck] = useState([]);
+  const [moveDisabled, setMoveDisabled] = useState(false);
   const addCard = () => {
-    setDeck(deck.concat(<Card key={deck.length}></Card>));
+    setDeck(deck.concat(<Card moveOff={() => setMoveDisabled(true)} key={deck.length} ></Card>));
   }
 
   return (
     <>
-      <main onDoubleClick={addCard}>{deck}</main>
+      <TransformWrapper
+        initialScale={1}
+        disabled={moveDisabled}
+        minScale={1}
+        maxScale={1}
+        limitToBounds={false}
+        pinch={{ step: 5 }}
+      >
+        <TransformComponent>
+          <main onDoubleClick={addCard} onClick={() => setMoveDisabled(false)}>
+            {deck}
+          </main>
+        </TransformComponent>
+      </TransformWrapper>
     </>
   )
 }
