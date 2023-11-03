@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Draggable from 'react-draggable';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import { Rnd } from 'react-rnd';
 import './App.scss';
 
 function Card({ moveOff }) {
@@ -13,8 +13,15 @@ function Card({ moveOff }) {
 
   return (
     <>
-      <Draggable
-        grid={[20, 20]}
+      <Rnd
+        default={{
+          x: 0,
+          y: 0,
+          width: 200,
+          height: 200,
+        }}
+        resizeGrid={[20, 20]}
+        dragGrid={[20, 20]}
         onMouseDown={moveOff}
       >
         {edit ? (
@@ -26,30 +33,35 @@ function Card({ moveOff }) {
             {text}
           </div>
         )}
-      </Draggable >
+      </Rnd >
     </>
   );
 }
 
 function Board() {
   const [deck, setDeck] = useState([]);
-  const [moveDisabled, setMoveDisabled] = useState(false);
+  const [boardMoveDisabled, setBoardMoveDisabled] = useState(false);
   const addCard = () => {
-    setDeck(deck.concat(<Card moveOff={() => setMoveDisabled(true)} key={deck.length} ></Card>));
+    setDeck(deck.concat(
+      <Card
+        moveOff={() => setBoardMoveDisabled(true)}
+        key={deck.length}
+      >
+      </Card >));
   }
 
   return (
     <>
       <TransformWrapper
         initialScale={1}
-        disabled={moveDisabled}
+        disabled={boardMoveDisabled}
         minScale={1}
         maxScale={1}
         limitToBounds={false}
         pinch={{ step: 5 }}
       >
         <TransformComponent>
-          <main onDoubleClick={addCard} onClick={() => setMoveDisabled(false)}>
+          <main onDoubleClick={addCard} onClick={() => setBoardMoveDisabled(false)}>
             {deck}
           </main>
         </TransformComponent>
