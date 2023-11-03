@@ -3,9 +3,10 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Rnd } from 'react-rnd';
 import './App.scss';
 
-function Card({ moveOff }) {
+function Card({ moveOff, cardPosX, cardPosY }) {
   const [text, setText] = useState("new card");
   const [edit, setEdit] = useState(false);
+
   const handleEdit = (e) => {
     e.stopPropagation();
     setEdit(!edit);
@@ -15,8 +16,8 @@ function Card({ moveOff }) {
     <>
       <Rnd
         default={{
-          x: 0,
-          y: 0,
+          x: cardPosX,
+          y: cardPosY,
           width: 200,
           height: 200,
         }}
@@ -41,11 +42,16 @@ function Card({ moveOff }) {
 function Board() {
   const [deck, setDeck] = useState([]);
   const [boardMoveDisabled, setBoardMoveDisabled] = useState(false);
-  const addCard = () => {
+
+  const addCard = (e) => {
+    const x = e.clientX;
+    const y = e.clientY;
     setDeck(deck.concat(
       <Card
         moveOff={() => setBoardMoveDisabled(true)}
         key={deck.length}
+        cardPosX={Math.round(x / 20) * 20 - 100}
+        cardPosY={Math.round(y / 20) * 20 - 100}
       >
       </Card >));
   }
