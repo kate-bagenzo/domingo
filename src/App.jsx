@@ -27,8 +27,16 @@ function Card({ moveOff, cardPosX, cardPosY }) {
         disableDragging={edit}
       >
         {edit ? (
-          <div onDoubleClick={handleEdit} className="card">
-            <textarea autoFocus={true} value={text} onChange={e => setText(e.target.value)}></textarea>
+          <div className="card">
+            <textarea
+              autoFocus={true}
+              value={text}
+              onChange={e => setText(e.target.value)}
+              onBlur={handleEdit}
+              onClick={(e) => e.stopPropagation()}
+              onDoubleClick={(e) => e.stopPropagation()}
+            >
+            </textarea>
           </div>
         ) : (
           <div onDoubleClick={handleEdit} className="card">
@@ -68,11 +76,16 @@ function Board() {
         pinch={{ step: 5 }}
       >
         <TransformComponent>
-          <main onDoubleClick={addCard} onClick={() => setBoardMoveDisabled(false)}>
+          <main
+            onDoubleClick={addCard}
+            onClick={() => {
+              setBoardMoveDisabled(false);
+              { document.activeElement.blur(); }
+            }}>
             {deck}
           </main>
         </TransformComponent>
-      </TransformWrapper>
+      </TransformWrapper >
     </>
   )
 }
