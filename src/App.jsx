@@ -24,6 +24,7 @@ function Card({ moveOff, cardPosX, cardPosY }) {
         resizeGrid={[20, 20]}
         dragGrid={[20, 20]}
         onMouseDown={moveOff}
+        disableDragging={edit}
       >
         {edit ? (
           <div onDoubleClick={handleEdit} className="card">
