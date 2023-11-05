@@ -21,6 +21,8 @@ function Card({ moveOff, cardPosX, cardPosY }) {
           width: 200,
           height: 200,
         }}
+        minWidth={40}
+        minHeight={40}
         resizeGrid={[20, 20]}
         dragGrid={[20, 20]}
         onMouseDown={moveOff}
