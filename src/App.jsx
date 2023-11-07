@@ -3,7 +3,7 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Rnd } from 'react-rnd';
 import './App.scss';
 
-function Card({ moveOff, cardPosX, cardPosY }) {
+function Card({ moveOff, moveOn, cardPosX, cardPosY }) {
   const [text, setText] = useState("new card");
   const [edit, setEdit] = useState(false);
 
@@ -26,6 +26,7 @@ function Card({ moveOff, cardPosX, cardPosY }) {
         resizeGrid={[20, 20]}
         dragGrid={[20, 20]}
         onMouseDown={moveOff}
+        onClick={moveOn}
         disableDragging={edit}
       >
         {edit ? (
@@ -50,7 +51,28 @@ function Card({ moveOff, cardPosX, cardPosY }) {
   );
 }
 
-function Board() {
+function Board({ isBoardStopped, allCards }) {
+  return (
+    <>
+      <TransformWrapper
+        initialScale={1}
+        disabled={isBoardStopped}
+        minScale={1}
+        maxScale={1}
+        limitToBounds={false}
+        pinch={{ step: 5 }}
+      >
+        <TransformComponent>
+          <main>
+            {allCards}
+          </main>
+        </TransformComponent>
+      </TransformWrapper >
+    </>
+  )
+}
+
+function App() {
   const [deck, setDeck] = useState([]);
   const [boardMoveDisabled, setBoardMoveDisabled] = useState(false);
 
@@ -60,42 +82,24 @@ function Board() {
     setDeck(deck.concat(
       <Card
         moveOff={() => setBoardMoveDisabled(true)}
+        moveOn={() => setBoardMoveDisabled(false)}
         key={deck.length}
         cardPosX={Math.round(x / 20) * 20 - 100}
         cardPosY={Math.round(y / 20) * 20 - 100}
       >
       </Card >));
   }
-
   return (
     <>
-      <TransformWrapper
-        initialScale={1}
-        disabled={boardMoveDisabled}
-        minScale={1}
-        maxScale={1}
-        limitToBounds={false}
-        pinch={{ step: 5 }}
+      <aside
+        onDoubleClick={addCard}
       >
-        <TransformComponent>
-          <main
-            onDoubleClick={addCard}
-            onClick={() => {
-              setBoardMoveDisabled(false);
-              { document.activeElement.blur(); }
-            }}>
-            {deck}
-          </main>
-        </TransformComponent>
-      </TransformWrapper >
-    </>
-  )
-}
-
-function App() {
-  return (
-    <>
-      <Board></Board>
+      </aside>
+      <Board
+        isBoardStopped={boardMoveDisabled}
+        allCards={deck}
+      >
+      </Board>
     </>
   )
 }
