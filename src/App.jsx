@@ -72,20 +72,30 @@ function Board({ isBoardStopped, allCards }) {
   )
 }
 
+const transform = document.getElementsByClassName('react-transform-component');
+const reX = /te[(](-*\d+)/
+const reY = /\s(-*\d+)/
+
 function App() {
   const [deck, setDeck] = useState([]);
   const [boardMoveDisabled, setBoardMoveDisabled] = useState(false);
 
+  const testPos = (e) => {
+    console.log('(' + e.clientX + ' ' + e.clientY + ')');
+  }
+
   const addCard = (e) => {
     const x = e.clientX;
     const y = e.clientY;
+    const offsetX = Number(transform[0].style.transform.match(reX)[1]);
+    const offsetY = Number(transform[0].style.transform.match(reY) ? (transform[0].style.transform.match(reY)[1]) : (0));
     setDeck(deck.concat(
       <Card
         moveOff={() => setBoardMoveDisabled(true)}
         moveOn={() => setBoardMoveDisabled(false)}
         key={deck.length}
-        cardPosX={Math.round(x / 20) * 20 - 100}
-        cardPosY={Math.round(y / 20) * 20 - 100}
+        cardPosX={(Math.round(x / 20) * 20 - 100) - offsetX}
+        cardPosY={(Math.round(y / 20) * 20 - 100) - offsetY}
       >
       </Card >));
   }
@@ -93,13 +103,16 @@ function App() {
     <>
       <aside
         onDoubleClick={addCard}
+        onContextMenu={(e) => {
+
+        }}
       >
+        <Board
+          isBoardStopped={boardMoveDisabled}
+          allCards={deck}
+        >
+        </Board>
       </aside>
-      <Board
-        isBoardStopped={boardMoveDisabled}
-        allCards={deck}
-      >
-      </Board>
     </>
   )
 }
