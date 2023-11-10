@@ -3,7 +3,7 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Rnd } from 'react-rnd';
 import './App.scss';
 
-function Card({ moveOff, moveOn, cardPosX, cardPosY }) {
+function Card({ moveOff, moveOn, cardPosX, cardPosY, cardStyle }) {
   const [text, setText] = useState("new card");
   const [edit, setEdit] = useState(false);
 
@@ -30,7 +30,7 @@ function Card({ moveOff, moveOn, cardPosX, cardPosY }) {
         disableDragging={edit}
       >
         {edit ? (
-          <div className="card">
+          <div className={`card ${cardStyle}`}>
             <textarea
               autoFocus={true}
               value={text}
@@ -42,7 +42,7 @@ function Card({ moveOff, moveOn, cardPosX, cardPosY }) {
             </textarea>
           </div>
         ) : (
-          <div onDoubleClick={handleEdit} className="card">
+          <div onDoubleClick={handleEdit} className={`card ${cardStyle}`}>
             {text}
           </div>
         )}
@@ -79,10 +79,7 @@ const reY = /\s(-*\d+)/
 function App() {
   const [deck, setDeck] = useState([]);
   const [boardMoveDisabled, setBoardMoveDisabled] = useState(false);
-
-  const testPos = (e) => {
-    console.log('(' + e.clientX + ' ' + e.clientY + ')');
-  }
+  const [cardStyle, setCardStyle] = useState('card-text');
 
   const addCard = (e) => {
     const x = e.clientX;
@@ -94,8 +91,9 @@ function App() {
         moveOff={() => setBoardMoveDisabled(true)}
         moveOn={() => setBoardMoveDisabled(false)}
         key={deck.length}
-        cardPosX={(Math.round(x / 20) * 20 - 100) - offsetX}
-        cardPosY={(Math.round(y / 20) * 20 - 100) - offsetY}
+        cardPosX={(Math.round((x - offsetX) / 20) * 20 - 100)}
+        cardPosY={(Math.round((y - offsetY) / 20) * 20 - 100)}
+        cardStyle={cardStyle}
       >
       </Card >));
   }
@@ -104,6 +102,7 @@ function App() {
       <aside
         onDoubleClick={addCard}
         onContextMenu={(e) => {
+          e.preventDefault();
 
         }}
       >
