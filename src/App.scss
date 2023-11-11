@@ -5,18 +5,22 @@ $card-border-outer: inset -1px -1px #0a0a0a,
 $card-border-inner: inset -2px -2px #808080,
     inset 2px 2px #dfdfdf;
 
-
 $card-width: 10rem;
 $card-height: 10rem;
+
+$primary-bg-color: #3a6ea5;
+
+body {
+    background-color: $primary-bg-color;
+}
 
 .card {
     width: 100%;
     height: 100%;
-    background-color: $primary-card-color;
+
     user-select: none;
     display: flex;
     justify-content: center;
-    box-shadow: $card-border-outer, $card-border-inner;
     padding: 1rem;
     overflow: hidden;
 
@@ -24,20 +28,93 @@ $card-height: 10rem;
         resize: none;
         width: 100%;
         height: 100%;
-        background-color: $editable-card-color;
         font-family: 'serif';
         display: flex;
         justify-content: center;
         text-align: center;
     }
+
+}
+
+.card-text {
+    z-index: 1;
+    background-color: $primary-card-color;
+    box-shadow: $card-border-outer, $card-border-inner;
+
+    textarea {
+        background-color: $editable-card-color;
+    }
+}
+
+$header-color: #000080;
+
+.card-header {
+    z-index: 2;
+    background-color: $header-color;
+    color: white;
+    border: 1px solid white;
+    align-items: center;
+    font-size: 3rem;
+
+    textarea {
+        background-color: $header-color;
+        color: white;
+    }
+}
+
+$note-color: #ededb4;
+
+.react-draggable>:has(.card-note) {
+    z-index: 3;
+}
+
+.card-note {
+    z-index: 3;
+    background-color: $note-color;
+    border: 1px solid black;
+    border-radius: 8px;
+
+    textarea {
+        background-color: $note-color;
+    }
+
+}
+
+.card-code {
+    background-color: black;
+    color: white;
+    font-family: monospace;
+
+    textarea {
+        background-color: black;
+        color: white;
+    }
+}
+
+.card-note {
+    transform: translate(-10px, -10px);
+    box-shadow: 10px 10px 10px black;
+}
+
+main,
+aside {
+    margin: 0;
+    padding: 0;
 }
 
 main {
-    margin: 0;
-    padding: 0;
     height: 100vh;
     width: 100vw;
-    background-size: 20px 20px;
-    background-image: url('bg.png');
 
+}
+
+.react-transform-component {}
+
+aside {
+    z-index: 1;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
 }

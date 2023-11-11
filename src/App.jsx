@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Rnd } from 'react-rnd';
-import './App.scss';
 
-function Card({ moveOff, cardPosX, cardPosY }) {
+function Card({ moveOff, moveOn, cardPosX, cardPosY, cardStyle }) {
   const [text, setText] = useState("new card");
   const [edit, setEdit] = useState(false);
 
@@ -26,10 +25,11 @@ function Card({ moveOff, cardPosX, cardPosY }) {
         resizeGrid={[20, 20]}
         dragGrid={[20, 20]}
         onMouseDown={moveOff}
+        onClick={moveOn}
         disableDragging={edit}
       >
         {edit ? (
-          <div className="card">
+          <div className={`card ${cardStyle}`}>
             <textarea
               autoFocus={true}
               value={text}
@@ -41,7 +41,7 @@ function Card({ moveOff, cardPosX, cardPosY }) {
             </textarea>
           </div>
         ) : (
-          <div onDoubleClick={handleEdit} className="card">
+          <div onDoubleClick={handleEdit} className={`card ${cardStyle}`}>
             {text}
           </div>
         )}
@@ -50,41 +50,20 @@ function Card({ moveOff, cardPosX, cardPosY }) {
   );
 }
 
-function Board() {
-  const [deck, setDeck] = useState([]);
-  const [boardMoveDisabled, setBoardMoveDisabled] = useState(false);
-
-  const addCard = (e) => {
-    const x = e.clientX;
-    const y = e.clientY;
-    setDeck(deck.concat(
-      <Card
-        moveOff={() => setBoardMoveDisabled(true)}
-        key={deck.length}
-        cardPosX={Math.round(x / 20) * 20 - 100}
-        cardPosY={Math.round(y / 20) * 20 - 100}
-      >
-      </Card >));
-  }
-
+function Board({ isBoardStopped, allCards }) {
   return (
     <>
       <TransformWrapper
         initialScale={1}
-        disabled={boardMoveDisabled}
+        disabled={isBoardStopped}
         minScale={1}
         maxScale={1}
         limitToBounds={false}
         pinch={{ step: 5 }}
       >
         <TransformComponent>
-          <main
-            onDoubleClick={addCard}
-            onClick={() => {
-              setBoardMoveDisabled(false);
-              { document.activeElement.blur(); }
-            }}>
-            {deck}
+          <main>
+            {allCards}
           </main>
         </TransformComponent>
       </TransformWrapper >
@@ -92,10 +71,43 @@ function Board() {
   )
 }
 
+const transform = document.getElementsByClassName('react-transform-component');
+const reX = /te[(](-*\d+)/
+const reY = /\s(-*\d+)/
+
 function App() {
+  const [deck, setDeck] = useState([]);
+  const [boardMoveDisabled, setBoardMoveDisabled] = useState(false);
+  const [cardStyle, setCardStyle] = useState('card-text');
+
+  const addCard = (e) => {
+    const x = e.clientX;
+    const y = e.clientY;
+    const offsetX = Number(transform[0].style.transform.match(reX)[1]);
+    const offsetY = Number(transform[0].style.transform.match(reY) ? (transform[0].style.transform.match(reY)[1]) : (0));
+    setDeck(deck.concat(
+      <Card
+        moveOff={() => setBoardMoveDisabled(true)}
+        moveOn={() => setBoardMoveDisabled(false)}
+        key={deck.length}
+        cardPosX={(Math.round((x - offsetX) / 20) * 20 - 100)}
+        cardPosY={(Math.round((y - offsetY) / 20) * 20 - 100)}
+        cardStyle={cardStyle}
+      >
+      </Card >));
+  }
   return (
     <>
-      <Board></Board>
+      <aside
+        onDoubleClick={addCard}
+        onContextMenu={console.log('rightclick')}
+      >
+        <Board
+          isBoardStopped={boardMoveDisabled}
+          allCards={deck}
+        >
+        </Board>
+      </aside>
     </>
   )
 }
