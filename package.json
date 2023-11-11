@@ -12,6 +12,7 @@
   "dependencies": {
     "normalize.css": "^8.0.1",
     "react": "^18.2.0",
+    "react-contexify": "^6.0.0",
     "react-contextify": "^0.1.0",
     "react-dom": "^18.2.0",
     "react-draggable": "^4.4.6",
@@ -28,6 +29,7 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
-    "vite": "^4.4.5"
+    "typescript": "^5.2.2",
+    "vite": "^4.5.0"
   }
 }

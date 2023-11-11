@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Rnd } from 'react-rnd';
-import './App.scss';
 
 function Card({ moveOff, moveOn, cardPosX, cardPosY, cardStyle }) {
   const [text, setText] = useState("new card");
@@ -101,10 +100,7 @@ function App() {
     <>
       <aside
         onDoubleClick={addCard}
-        onContextMenu={(e) => {
-          e.preventDefault();
-
-        }}
+        onContextMenu={console.log('rightclick')}
       >
         <Board
           isBoardStopped={boardMoveDisabled}
