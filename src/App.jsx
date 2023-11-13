@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Rnd } from 'react-rnd';
+import SpawnMenu from './components/SpawnMenu';
 import './App.scss';
 
 function Card({ moveOff, moveOn, cardPosX, cardPosY, cardStyle }) {
@@ -108,6 +109,7 @@ function App() {
         >
         </Board>
       </aside>
+      <SpawnMenu addCard={addCard}></SpawnMenu>
     </>
   )
 }
