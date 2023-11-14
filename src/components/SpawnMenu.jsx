@@ -3,7 +3,6 @@ import './SpawnMenu.scss';
 
 function Item({ itemText, addCard, cardType }) {
     const spawnCard = (e) => {
-        console.log(e);
         addCard(e);
     }
     return (
@@ -26,8 +25,9 @@ function Menu({ style, addCard }) {
             <menu
                 style={style}
             >
-                <Item itemText={'new card'} addCard={addCard} cardType={'card-text'}></Item>
                 <Item itemText={'new header'} addCard={addCard} cardType={'card-header'}></Item>
+                <Item itemText={'new note'} addCard={addCard} cardType={'card-note'}></Item>
+                <Item itemText={'new code'} addCard={addCard} cardType={'card-code'}></Item>
             </menu>
         </>
     )

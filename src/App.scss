@@ -1,14 +1,8 @@
-$primary-card-color: #c0c0c0;
-$editable-card-color: #e0e0e0;
-$card-border-outer: inset -1px -1px #0a0a0a,
-    inset 1px 1px #ffffff;
-$card-border-inner: inset -2px -2px #808080,
-    inset 2px 2px #dfdfdf;
+@import 'colors.scss';
 
-$card-width: 10rem;
-$card-height: 10rem;
-
-$primary-bg-color: #3a6ea5;
+* {
+    box-sizing: border-box;
+}
 
 body {
     background-color: $primary-bg-color;
@@ -46,8 +40,6 @@ body {
     }
 }
 
-$header-color: #000080;
-
 .card-header {
     z-index: 2;
     background-color: $header-color;
@@ -61,8 +53,6 @@ $header-color: #000080;
         color: white;
     }
 }
-
-$note-color: #ededb4;
 
 .react-draggable>:has(.card-note) {
     z-index: 3;
@@ -84,6 +74,7 @@ $note-color: #ededb4;
     background-color: black;
     color: white;
     font-family: monospace;
+    border: 1px solid white;
 
     textarea {
         background-color: black;
@@ -107,8 +98,6 @@ main {
     width: 100vw;
 
 }
-
-.react-transform-component {}
 
 aside {
     z-index: 1;

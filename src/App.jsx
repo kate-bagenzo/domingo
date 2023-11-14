@@ -82,7 +82,6 @@ function App() {
   const [boardMoveDisabled, setBoardMoveDisabled] = useState(false);
 
   const addCard = (e) => {
-    console.log(e);
     const x = e.clientX;
     const y = e.clientY;
     const offsetX = Number(transform[0].style.transform.match(reX)[1]);
