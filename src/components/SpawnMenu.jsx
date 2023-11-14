@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import './SpawnMenu.scss';
 
-function Item({ itemText, addCard, cardStyle }) {
-    const newCardFromMenu = () => {
-        addCard;
+function Item({ itemText, addCard, cardType }) {
+    const spawnCard = (e) => {
+        addCard(e);
     }
     return (
         <>
             <li>
                 <button
-                    onClick={addCard}
+                    onClick={spawnCard}
+                    id={cardType}
                 >
                     {itemText}
                 </button>
@@ -24,8 +25,8 @@ function Menu({ style, addCard }) {
             <menu
                 style={style}
             >
-                <Item itemText={'new card'} addCard={addCard} cardStyle={'card-text'}></Item>
-                <Item itemText={'new header'} addCard={addCard} cardStyle={'card-header'}></Item>
+                <Item itemText={'new card'} addCard={addCard} cardType={'card-text'}></Item>
+                <Item itemText={'new header'} addCard={addCard} cardType={'card-header'}></Item>
             </menu>
         </>
     )

@@ -64,7 +64,9 @@ function Board({ isBoardStopped, allCards }) {
         pinch={{ step: 5 }}
       >
         <TransformComponent>
-          <main>
+          <main
+            id={'card-text'}
+          >
             {allCards}
           </main>
         </TransformComponent>
@@ -80,7 +82,6 @@ const reY = /\s(-*\d+)/
 function App() {
   const [deck, setDeck] = useState([]);
   const [boardMoveDisabled, setBoardMoveDisabled] = useState(false);
-  const [cardStyle, setCardStyle] = useState('card-text');
 
   const addCard = (e) => {
     const x = e.clientX;
@@ -94,7 +95,7 @@ function App() {
         key={deck.length}
         cardPosX={(Math.round((x - offsetX) / 20) * 20 - 100)}
         cardPosY={(Math.round((y - offsetY) / 20) * 20 - 100)}
-        cardStyle={cardStyle}
+        cardStyle={e.target.id}
       >
       </Card >));
   }
