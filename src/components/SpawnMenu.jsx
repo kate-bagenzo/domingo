@@ -3,6 +3,7 @@ import './SpawnMenu.scss';
 
 function Item({ itemText, addCard, cardType }) {
     const spawnCard = (e) => {
+        console.log(e);
         addCard(e);
     }
     return (
@@ -10,7 +11,7 @@ function Item({ itemText, addCard, cardType }) {
             <li>
                 <button
                     onClick={spawnCard}
-                    id={cardType}
+                    name={cardType}
                 >
                     {itemText}
                 </button>

@@ -64,9 +64,7 @@ function Board({ isBoardStopped, allCards }) {
         pinch={{ step: 5 }}
       >
         <TransformComponent>
-          <main
-            id={'card-text'}
-          >
+          <main>
             {allCards}
           </main>
         </TransformComponent>
@@ -84,6 +82,7 @@ function App() {
   const [boardMoveDisabled, setBoardMoveDisabled] = useState(false);
 
   const addCard = (e) => {
+    console.log(e);
     const x = e.clientX;
     const y = e.clientY;
     const offsetX = Number(transform[0].style.transform.match(reX)[1]);
@@ -95,7 +94,7 @@ function App() {
         key={deck.length}
         cardPosX={(Math.round((x - offsetX) / 20) * 20 - 100)}
         cardPosY={(Math.round((y - offsetY) / 20) * 20 - 100)}
-        cardStyle={e.target.id}
+        cardStyle={e.target.name ? (e.target.name) : ('card-text')}
       >
       </Card >));
   }
