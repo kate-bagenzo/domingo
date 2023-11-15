@@ -87,6 +87,18 @@ body {
     box-shadow: 10px 10px 10px black;
 }
 
+.card-image {
+    background-color: $primary-card-color;
+    box-shadow: $card-border-outer, $card-border-inner;
+    padding: 0.5rem;
+
+    img {
+        width: 100%;
+        height: 100%;
+        border: 1px solid black;
+    }
+}
+
 main,
 aside {
     margin: 0;
@@ -106,4 +118,8 @@ aside {
     top: 0;
     height: 100vh;
     width: 100vw;
+}
+
+.img-input {
+    max-height: 1.3rem;
 }

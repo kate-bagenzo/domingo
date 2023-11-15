@@ -28,6 +28,7 @@ function Menu({ style, addCard }) {
                 <Item itemText={'new header'} addCard={addCard} cardType={'card-header'}></Item>
                 <Item itemText={'new note'} addCard={addCard} cardType={'card-note'}></Item>
                 <Item itemText={'new code'} addCard={addCard} cardType={'card-code'}></Item>
+                <Item itemText={'new image'} addCard={addCard} cardType={'card-image'}></Item>
             </menu>
         </>
     )

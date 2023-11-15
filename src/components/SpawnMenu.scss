@@ -14,6 +14,38 @@ menu {
     height: 300px;
     background-color: $primary-card-color;
     box-shadow: $card-border-outer, $card-border-inner;
+
+    button {
+        width: 90%;
+        display: inline-block;
+        border: none;
+        padding: 0.5rem;
+        margin: 0;
+        text-decoration: none;
+        color: black;
+        background-color: $primary-card-color;
+        font-family: serif;
+        font-size: 1rem;
+        cursor: pointer;
+        text-align: center;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+
+        &:focus {
+            outline: 1px solid #fff;
+            outline-offset: -4px;
+        }
+
+        &:hover,
+        &:focus {
+            background: $primary-select-color;
+            color: white;
+        }
+
+        &:active {
+            transform: scale(0.99);
+        }
+    }
 }
 
 menu,
@@ -26,36 +58,4 @@ li {
 li {
     width: 100%;
     padding-top: 0.2rem;
-}
-
-button {
-    width: 90%;
-    display: inline-block;
-    border: none;
-    padding: 0.5rem;
-    margin: 0;
-    text-decoration: none;
-    color: black;
-    background-color: $primary-card-color;
-    font-family: serif;
-    font-size: 1rem;
-    cursor: pointer;
-    text-align: center;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-}
-
-button:hover,
-button:focus {
-    background: $primary-select-color;
-    color: white;
-}
-
-button:focus {
-    outline: 1px solid #fff;
-    outline-offset: -4px;
-}
-
-button:active {
-    transform: scale(0.99);
 }
