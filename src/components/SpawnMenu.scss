@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-menu {
+.spawnmenu {
     z-index: 100;
     list-style-type: none;
     margin: 0;
@@ -48,7 +48,7 @@ menu {
     }
 }
 
-menu,
+.spawnmenu,
 li {
     display: flex;
     flex-direction: column;

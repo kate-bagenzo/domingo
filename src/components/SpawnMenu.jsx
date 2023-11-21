@@ -22,6 +22,7 @@ function Menu({ style }) {
     return (
         <>
             <menu
+                className='spawnmenu'
                 style={style}
             >
                 <Item itemText={'new header'} cardType={'card-header'}></Item>
@@ -47,9 +48,14 @@ function SpawnMenu() {
         }
     });
     const handleClick = (e) => {
+        const min = 0;
+        const xPosMax = window.innerWidth - 200;
+        const yPosMax = window.innerHeight - 300;
+        const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
         e.preventDefault();
-        setXPos(e.clientX + 6);
-        setYPos(e.clientY + 6);
+        setXPos(clamp((e.clientX + 6), min, xPosMax));
+        setYPos(clamp((e.clientY + 6), min, yPosMax));
+
         setShowSpawnMenu(!showSpawnMenu);
     }
 
