@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DeckContext } from './DeckContext';
 import Card from './components/Card';
 import Board from './components/Board';
@@ -13,6 +13,35 @@ const reY = /\s(-*\d+)/
 function App() {
   const [deck, setDeck] = useState([]);
   const [boardMoveDisabled, setBoardMoveDisabled] = useState(false);
+
+
+  useEffect(() => {
+    const savedDeck = JSON.parse(localStorage.getItem('domingo-deck'));
+    let nextDeck = [];
+    if (savedDeck) {
+      for (let i = 0; i < savedDeck.length; i++) {
+        let card = savedDeck[i];
+        const nextCard = <Card
+          key={card.key}
+          moveOff={() => setBoardMoveDisabled(true)}
+          moveOn={() => setBoardMoveDisabled(false)}
+          indexKey={card.props.indexKey}
+          cardPosX={card.props.cardPosX}
+          cardPosY={card.props.cardPosY}
+          cardStyle={card.props.cardStyle}
+          cardText={card.props.cardText}
+        >
+        </Card >;
+        nextDeck = nextDeck.concat(nextCard);
+      }
+      setDeck(nextDeck);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('domingo-deck', JSON.stringify(deck));
+  }, [deck]);
+
 
   const getCardPos = (e) => {
     const x = e.clientX;
