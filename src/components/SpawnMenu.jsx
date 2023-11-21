@@ -1,15 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { DeckContext } from '../DeckContext';
 import './SpawnMenu.scss';
 
-function Item({ itemText, addCard, cardType }) {
-    const spawnCard = (e) => {
-        addCard(e);
-    }
+function Item({ itemText, cardType }) {
+    const { addCard } = useContext(DeckContext);
     return (
         <>
             <li>
                 <button
-                    onClick={spawnCard}
+                    onClick={addCard}
                     name={cardType}
                 >
                     {itemText}
@@ -19,22 +18,22 @@ function Item({ itemText, addCard, cardType }) {
     )
 }
 
-function Menu({ style, addCard }) {
+function Menu({ style }) {
     return (
         <>
             <menu
                 style={style}
             >
-                <Item itemText={'new header'} addCard={addCard} cardType={'card-header'}></Item>
-                <Item itemText={'new note'} addCard={addCard} cardType={'card-note'}></Item>
-                <Item itemText={'new code'} addCard={addCard} cardType={'card-code'}></Item>
-                <Item itemText={'new image'} addCard={addCard} cardType={'card-image'}></Item>
+                <Item itemText={'new header'} cardType={'card-header'}></Item>
+                <Item itemText={'new note'} cardType={'card-note'}></Item>
+                <Item itemText={'new code'} cardType={'card-code'}></Item>
+                <Item itemText={'new image'} cardType={'card-image'}></Item>
             </menu>
         </>
     )
 }
 
-function SpawnMenu({ addCard }) {
+function SpawnMenu() {
     const [xPos, setXPos] = useState(0);
     const [yPos, setYPos] = useState(0);
     const [showSpawnMenu, setShowSpawnMenu] = useState(false);
@@ -65,7 +64,6 @@ function SpawnMenu({ addCard }) {
                     left: xPos,
                     top: yPos
                 }}
-                addCard={addCard}
             ></Menu>) : null}
         </>
     )
