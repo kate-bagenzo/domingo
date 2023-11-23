@@ -3,12 +3,9 @@ import { DeckContext } from './DeckContext';
 import Card from './components/Card';
 import Board from './components/Board';
 import SpawnMenu from './components/SpawnMenu';
+
+import { reX, reY, transform } from './PositionHelpers';
 import './App.scss';
-
-
-const transform = document.getElementsByClassName('react-transform-component');
-const reX = /te[(](-*\d+)/
-const reY = /\s(-*\d+)/
 
 function App() {
   const [deck, setDeck] = useState([]);

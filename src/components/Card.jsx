@@ -2,6 +2,8 @@ import { useContext, useState } from 'react';
 import { produce } from 'immer';
 import { DeckContext } from '../DeckContext';
 import { Rnd } from 'react-rnd';
+
+import { reX, reY } from '../PositionHelpers';
 import './Card.scss';
 
 function Card({ indexKey, moveOff, moveOn, cardPosX, cardPosY, cardStyle, cardText }) {
@@ -20,11 +22,13 @@ function Card({ indexKey, moveOff, moveOn, cardPosX, cardPosY, cardStyle, cardTe
         }))
     }
 
-    const updateCardPos = (e) => {
-        const cardPos = getCardPos(e);
+    const updateCardPos = () => {
+        let cardPos = document.getElementsByClassName(`card-#${indexKey}`);
+        const posX = Number(cardPos[0].style.transform.match(reX)[1]);
+        const posY = Number(cardPos[0].style.transform.match(reY) ? (cardPos[0].style.transform.match(reY)[1]) : (0));
         setDeck(produce(draft => {
-            draft[indexKey].props.cardPosX = cardPos.x;
-            draft[indexKey].props.cardPosY = cardPos.y;
+            draft[indexKey].props.cardPosX = posX;
+            draft[indexKey].props.cardPosY = posY;
         }))
     }
 
@@ -50,6 +54,7 @@ function Card({ indexKey, moveOff, moveOn, cardPosX, cardPosY, cardStyle, cardTe
                 onMouseDown={moveOff}
                 onClick={moveOn}
                 disableDragging={edit}
+                className={`card-#${indexKey}`}
             >
                 {edit ? (
                     <div className={`card ${cardStyle}`}>
