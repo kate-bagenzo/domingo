@@ -25,8 +25,11 @@ function App() {
           indexKey={card.props.indexKey}
           cardPosX={card.props.cardPosX}
           cardPosY={card.props.cardPosY}
+          cardWidth={card.props.cardWidth}
+          cardHeight={card.props.cardHeight}
           cardStyle={card.props.cardStyle}
           cardText={card.props.cardText}
+          cardImage={card.props.cardImage}
         >
         </Card >;
         nextDeck = nextDeck.concat(nextCard);
@@ -82,8 +85,11 @@ function App() {
         indexKey={deck.length}
         cardPosX={cardPos.x}
         cardPosY={cardPos.y}
+        cardWidth={200}
+        cardHeight={200}
         cardStyle={cardStyle}
         cardText={getCardDefaultText(cardStyle)}
+        cardImage={'test.png'}
       >
       </Card >));
   }
