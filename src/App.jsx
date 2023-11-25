@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { DeckContext } from './DeckContext';
-import Card from './components/Card';
 import Board from './components/Board';
 import SpawnMenu from './components/SpawnMenu';
 
@@ -77,11 +76,8 @@ function App() {
   return (
     <>
       <DeckContext.Provider value={{ deck, setDeck, addCard, getCardPos, boardMoveDisabled, setBoardMoveDisabled }}>
-        <aside
-          onDoubleClick={addCard}
-        >
-          <Board>
-          </Board>
+        <aside onDoubleClick={addCard}>
+          <Board></Board>
         </aside>
         <SpawnMenu ></SpawnMenu>
       </DeckContext.Provider >

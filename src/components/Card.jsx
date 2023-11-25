@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { produce } from 'immer';
 import { DeckContext } from '../DeckContext';
 import { Rnd } from 'react-rnd';
@@ -9,6 +9,7 @@ import './Card.scss';
 function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, cardText, cardImage }) {
     const { setDeck, setBoardMoveDisabled } = useContext(DeckContext);
     const [edit, setEdit] = useState(false);
+    const cardRef = useRef(null);
 
     const handleEdit = (e) => {
         e.stopPropagation();
@@ -20,26 +21,6 @@ function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
         setDeck(produce(draft => {
             draft[indexKey].cardText = e.target.value;
         }))
-    }
-
-    const updateCardPos = () => {
-        let card = document.getElementsByClassName(`card-#${indexKey}`);
-        const posX = Number(card[0].style.transform.match(reX)[1]);
-        const posY = Number(card[0].style.transform.match(reY) ? (card[0].style.transform.match(reY)[1]) : (0));
-        setDeck(produce(draft => {
-            draft[indexKey].cardPosX = posX;
-            draft[indexKey].cardPosY = posY;
-        }));
-    }
-
-    const updateCardSize = () => {
-        let card = document.getElementsByClassName(`card-#${indexKey}`);
-        const width = parseInt(card[0].style.width);
-        const height = parseInt(card[0].style.height);
-        setDeck(produce(draft => {
-            draft[indexKey].cardWidth = width;
-            draft[indexKey].cardHeight = height;
-        }));
     }
 
     const updateCardImage = (e) => {
@@ -54,6 +35,27 @@ function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
         reader.readAsDataURL(file);
     }
 
+    const updateCardPos = () => {
+        let card = cardRef.current.parentElement;
+        const posX = Number(card.style.transform.match(reX)[1]);
+        const posY = Number(card.style.transform.match(reY) ? (card.style.transform.match(reY)[1]) : (0));
+        setDeck(produce(draft => {
+            draft[indexKey].cardPosX = posX;
+            draft[indexKey].cardPosY = posY;
+        }));
+    }
+
+    const updateCardSize = () => {
+        let card = cardRef.current.parentElement;
+        const width = parseInt(card.style.width);
+        const height = parseInt(card.style.height);
+        setDeck(produce(draft => {
+            draft[indexKey].cardWidth = width;
+            draft[indexKey].cardHeight = height;
+        }));
+    }
+
+
 
     return (
         <>
@@ -64,7 +66,6 @@ function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                     width: cardWidth,
                     height: cardHeight,
                 }}
-                className={`card-#${indexKey}`}
                 disableDragging={edit}
                 minWidth={40}
                 minHeight={40}
@@ -79,6 +80,7 @@ function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                     <div className={`card ${cardStyle}`}
                         onClick={(e) => e.stopPropagation()}
                         onDoubleClick={(e) => e.stopPropagation()}
+                        ref={cardRef}
                     >
                         {cardStyle == 'card-image' ? (
                             <div onDoubleClick={handleEdit}>
@@ -94,7 +96,7 @@ function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
 
                     </div>
                 ) : (
-                    <div onDoubleClick={handleEdit} className={`card ${cardStyle}`}>
+                    <div onDoubleClick={handleEdit} className={`card ${cardStyle}`} ref={cardRef}>
                         {cardStyle == 'card-image' ? (<img src={cardImage}></img>) : <>{cardText}</>}
                     </div>
                 )}
