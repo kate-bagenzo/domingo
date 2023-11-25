@@ -14,27 +14,8 @@ function App() {
 
   useEffect(() => {
     const savedDeck = JSON.parse(localStorage.getItem('domingo-deck'));
-    let nextDeck = [];
     if (savedDeck) {
-      for (let i = 0; i < savedDeck.length; i++) {
-        let card = savedDeck[i];
-        const nextCard = <Card
-          key={card.key}
-          moveOff={() => setBoardMoveDisabled(true)}
-          moveOn={() => setBoardMoveDisabled(false)}
-          indexKey={card.props.indexKey}
-          cardPosX={card.props.cardPosX}
-          cardPosY={card.props.cardPosY}
-          cardWidth={card.props.cardWidth}
-          cardHeight={card.props.cardHeight}
-          cardStyle={card.props.cardStyle}
-          cardText={card.props.cardText}
-          cardImage={card.props.cardImage}
-        >
-        </Card >;
-        nextDeck = nextDeck.concat(nextCard);
-      }
-      setDeck(nextDeck);
+      setDeck(savedDeck);
     }
   }, []);
 
@@ -77,33 +58,29 @@ function App() {
   const addCard = (e) => {
     const cardPos = getCardPos(e);
     const cardStyle = e.target.name ? (e.target.name) : ('card-text');
-    setDeck(deck.concat(
-      <Card
-        key={deck.length}
-        moveOff={() => setBoardMoveDisabled(true)}
-        moveOn={() => setBoardMoveDisabled(false)}
-        indexKey={deck.length}
-        cardPosX={cardPos.x}
-        cardPosY={cardPos.y}
-        cardWidth={200}
-        cardHeight={200}
-        cardStyle={cardStyle}
-        cardText={getCardDefaultText(cardStyle)}
-        cardImage={'test.png'}
-      >
-      </Card >));
+    const cardText = getCardDefaultText(cardStyle);
+
+    setDeck(deck.concat({
+      key: deck.length,
+      indexKey: deck.length,
+      cardPosX: cardPos.x,
+      cardPosY: cardPos.y,
+      cardWidth: 200,
+      cardHeight: 200,
+      cardStyle: cardStyle,
+      cardText: cardText,
+      cardImage: "test.png"
+    }));
+    console.log(deck);
   }
 
   return (
     <>
-      <DeckContext.Provider value={{ deck, setDeck, addCard, getCardPos }}>
+      <DeckContext.Provider value={{ deck, setDeck, addCard, getCardPos, boardMoveDisabled, setBoardMoveDisabled }}>
         <aside
           onDoubleClick={addCard}
         >
-          <Board
-            isBoardStopped={boardMoveDisabled}
-            allCards={deck}
-          >
+          <Board>
           </Board>
         </aside>
         <SpawnMenu ></SpawnMenu>

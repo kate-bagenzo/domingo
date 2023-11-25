@@ -6,8 +6,8 @@ import { Rnd } from 'react-rnd';
 import { reX, reY } from '../PositionHelpers';
 import './Card.scss';
 
-function Card({ indexKey, moveOff, moveOn, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, cardText, cardImage }) {
-    const { setDeck } = useContext(DeckContext);
+function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, cardText, cardImage }) {
+    const { setDeck, setBoardMoveDisabled } = useContext(DeckContext);
     const [edit, setEdit] = useState(false);
 
     const handleEdit = (e) => {
@@ -18,7 +18,7 @@ function Card({ indexKey, moveOff, moveOn, cardPosX, cardPosY, cardStyle, cardWi
     const updateCardText = (e) => {
         handleEdit(e);
         setDeck(produce(draft => {
-            draft[indexKey].props.cardText = e.target.value;
+            draft[indexKey].cardText = e.target.value;
         }))
     }
 
@@ -27,8 +27,8 @@ function Card({ indexKey, moveOff, moveOn, cardPosX, cardPosY, cardStyle, cardWi
         const posX = Number(card[0].style.transform.match(reX)[1]);
         const posY = Number(card[0].style.transform.match(reY) ? (card[0].style.transform.match(reY)[1]) : (0));
         setDeck(produce(draft => {
-            draft[indexKey].props.cardPosX = posX;
-            draft[indexKey].props.cardPosY = posY;
+            draft[indexKey].cardPosX = posX;
+            draft[indexKey].cardPosY = posY;
         }));
     }
 
@@ -37,8 +37,8 @@ function Card({ indexKey, moveOff, moveOn, cardPosX, cardPosY, cardStyle, cardWi
         const width = parseInt(card[0].style.width);
         const height = parseInt(card[0].style.height);
         setDeck(produce(draft => {
-            draft[indexKey].props.cardWidth = width;
-            draft[indexKey].props.cardHeight = height;
+            draft[indexKey].cardWidth = width;
+            draft[indexKey].cardHeight = height;
         }));
     }
 
@@ -48,7 +48,7 @@ function Card({ indexKey, moveOff, moveOn, cardPosX, cardPosY, cardStyle, cardWi
         reader.onloadend = () => {
             const result = reader.result;
             setDeck(produce(draft => {
-                draft[indexKey].props.cardImage = result;
+                draft[indexKey].cardImage = result;
             }));
         }
         reader.readAsDataURL(file);
@@ -70,8 +70,8 @@ function Card({ indexKey, moveOff, moveOn, cardPosX, cardPosY, cardStyle, cardWi
                 minHeight={40}
                 resizeGrid={[20, 20]}
                 dragGrid={[20, 20]}
-                onMouseDown={moveOff}
-                onClick={moveOn}
+                onMouseDown={() => setBoardMoveDisabled(true)}
+                onClick={() => setBoardMoveDisabled(false)}
                 onDragStop={updateCardPos}
                 onResizeStop={updateCardSize}
             >
