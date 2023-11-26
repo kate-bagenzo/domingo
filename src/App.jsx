@@ -42,7 +42,7 @@ function App() {
         defaultText = 'new header';
         break;
       case 'card-note':
-        defaultText = 'new note';
+        defaultText = 'mario sex';
         break;
       case 'card-code':
         defaultText = '//new code';
@@ -70,7 +70,6 @@ function App() {
       cardText: cardText,
       cardImage: "test.png"
     }));
-    console.log(deck);
   }
 
   return (
