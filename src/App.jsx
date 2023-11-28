@@ -8,7 +8,7 @@ import './App.scss';
 
 function App() {
   const [deck, setDeck] = useState([{
-    key: 0,
+    key: 'domingo guide:' + 0,
     indexKey: 0,
     cardPosX: 0,
     cardPosY: 0,
@@ -41,7 +41,7 @@ function App() {
     const cardText = getCardDefaultText(cardStyle);
 
     setDeck(deck.concat({
-      key: deck.length,
+      key: (deck[0].rootName + ':' + deck.length),
       indexKey: deck.length,
       cardPosX: cardPos.x,
       cardPosY: cardPos.y,

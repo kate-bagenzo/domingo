@@ -23,6 +23,7 @@ function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
             return;
         }
         setDeck(produce(draft => {
+            draft[0].key = e.target.rootName.value + ':' + 0;
             draft[0].rootName = e.target.rootName.value;
             draft[0].rootAuthor = e.target.rootAuthor.value;
 
@@ -38,7 +39,7 @@ function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
     const handleBoardSwitch = (e) => {
         if (e.target.value == 'new board') {
             setDeck([{
-                key: 0,
+                key: 'new board:' + 0,
                 indexKey: 0,
                 cardPosX: 0,
                 cardPosY: 0,
