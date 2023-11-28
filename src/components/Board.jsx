@@ -4,6 +4,7 @@ import { DeckContext } from "../DeckContext";
 import Card from "./Card";
 import './Board.scss';
 
+//the board contains all cards as well as transformwrapper + component which can be dragged / zoomed
 function Board() {
     const { deck, boardMoveDisabled } = useContext(DeckContext);
     return (
@@ -28,6 +29,8 @@ function Board() {
                             cardStyle={i.cardStyle}
                             cardText={i.cardText}
                             cardImage={i.cardImage}
+                            rootName={i.rootName}
+                            rootAuthor={i.rootAuthor}
                         ></Card>)}
                     </main>
                 </TransformComponent>

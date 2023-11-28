@@ -47,15 +47,12 @@ body {
     border: 1px solid white;
     align-items: center;
     font-size: 3rem;
+    text-align: center;
 
     textarea {
         background-color: $header-color;
         color: white;
     }
-}
-
-.react-draggable>:has(.card-note) {
-    z-index: 3;
 }
 
 .card-note {
@@ -107,5 +104,54 @@ body {
     div {
         width: 100%;
         height: 100%;
+    }
+}
+
+.card-root {
+    background-color: $header-color;
+    border: 1px solid white;
+    color: white;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    height: 300px;
+
+    .rootdisplay {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: flex-end;
+    }
+
+    .controlpanel,
+    .controlpanel form {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    h1,
+    h2,
+    h3 {
+        margin: 0;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+
+    h3 {
+        font-size: 0.75rem;
+        font-weight: normal;
+        font-style: italic;
     }
 }

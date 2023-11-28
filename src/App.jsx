@@ -1,61 +1,42 @@
 import { useEffect, useState } from 'react';
-import { DeckContext } from './DeckContext';
+import { DeckContext, getCardPosByMouse, getCardDefaultText } from './DeckContext';
 import Board from './components/Board';
 import SpawnMenu from './components/SpawnMenu';
 
-import { reX, reY, transform } from './PositionHelpers';
+import domingo from './domingo';
 import './App.scss';
 
 function App() {
-  const [deck, setDeck] = useState([]);
+  const [deck, setDeck] = useState([{
+    key: 0,
+    indexKey: 0,
+    cardPosX: 0,
+    cardPosY: 0,
+    cardWidth: 500,
+    cardHeight: 300,
+    cardStyle: 'card-root',
+    rootName: 'domingo guide',
+    rootAuthor: 'anonymous'
+  }]);
   const [boardMoveDisabled, setBoardMoveDisabled] = useState(false);
 
-
+  //load and save
+  //load default deck on startup
   useEffect(() => {
-    const savedDeck = JSON.parse(localStorage.getItem('domingo-deck'));
-    if (savedDeck) {
-      setDeck(savedDeck);
-    }
+    setDeck(JSON.parse(domingo));
   }, []);
 
+  //save non-default decks
   useEffect(() => {
-    localStorage.setItem('domingo-deck', JSON.stringify(deck));
+    if (deck[0].rootName != 'domingo guide') {
+      localStorage.setItem('domingo-deck:' + deck[0].rootName, JSON.stringify(deck));
+    }
+
   }, [deck]);
 
-
-  const getCardPos = (e) => {
-    const x = e.clientX;
-    const y = e.clientY;
-    const offsetX = Number(transform[0].style.transform.match(reX)[1]);
-    const offsetY = Number(transform[0].style.transform.match(reY) ? (transform[0].style.transform.match(reY)[1]) : (0));
-    const cardPos = {
-      x: (Math.round((x - offsetX) / 20) * 20 - 100),
-      y: (Math.round((y - offsetY) / 20) * 20 - 100)
-    }
-    return cardPos;
-  }
-
-  const getCardDefaultText = (cardStyle) => {
-    let defaultText = 'new card';
-    switch (cardStyle) {
-      case 'card-header':
-        defaultText = 'new header';
-        break;
-      case 'card-note':
-        defaultText = 'mario sex';
-        break;
-      case 'card-code':
-        defaultText = '//new code';
-        break;
-      case 'card-image':
-        defaultText = 'image missing';
-        break;
-    }
-    return defaultText;
-  }
-
+  //add card to deck
   const addCard = (e) => {
-    const cardPos = getCardPos(e);
+    const cardPos = getCardPosByMouse(e);
     const cardStyle = e.target.name ? (e.target.name) : ('card-text');
     const cardText = getCardDefaultText(cardStyle);
 
@@ -71,10 +52,9 @@ function App() {
       cardImage: "test.png"
     }));
   }
-
   return (
     <>
-      <DeckContext.Provider value={{ deck, setDeck, addCard, getCardPos, boardMoveDisabled, setBoardMoveDisabled }}>
+      <DeckContext.Provider value={{ deck, setDeck, addCard, getCardPosByMouse, boardMoveDisabled, setBoardMoveDisabled }}>
         <aside onDoubleClick={addCard}>
           <Board></Board>
         </aside>
