@@ -3,7 +3,7 @@ import { produce } from 'immer';
 import { DeckContext } from '../DeckContext';
 import { Rnd } from 'react-rnd';
 
-import { reX, reY } from '../PositionHelpers';
+import { reX, reY, transform } from '../PositionHelpers';
 import './Card.scss';
 
 //the most basic type of card, includes all editable text/image cards
@@ -17,7 +17,7 @@ function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
         e.preventDefault();
         const oldDeckName = deck[0].rootName;
         if (e.target.rootName.value == 'domingo guide') {
-            alert('You can\'t overwrite the default deck!');
+            alert('You can\'t overwrite the default board!');
             setEdit(false);
             setBoardMoveDisabled(false);
             return;
@@ -37,22 +37,23 @@ function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
 
     //switch between boards
     const handleBoardSwitch = (e) => {
+        let newDeck = [{
+            key: 'new board:' + 0,
+            indexKey: 0,
+            cardPosX: 0,
+            cardPosY: 0,
+            cardWidth: 500,
+            cardHeight: 300,
+            cardStyle: 'card-root',
+            rootName: 'new board',
+            rootAuthor: 'anonymous'
+        }];
+
         if (e.target.value == 'new board') {
-            setDeck([{
-                key: 'new board:' + 0,
-                indexKey: 0,
-                cardPosX: 0,
-                cardPosY: 0,
-                cardWidth: 500,
-                cardHeight: 300,
-                cardStyle: 'card-root',
-                rootName: 'new board',
-                rootAuthor: 'anonymous'
-            }]);
-        } else {
-            const newDeck = JSON.parse(localStorage.getItem(e.target.value));
             setDeck(newDeck);
-            console.log(newDeck);
+        } else {
+            newDeck = JSON.parse(localStorage.getItem(e.target.value));
+            setDeck(newDeck);
         }
         setEdit(false);
         setBoardMoveDisabled(false);

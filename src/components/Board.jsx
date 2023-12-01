@@ -1,12 +1,23 @@
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import { useContext } from "react";
+import { TransformWrapper, TransformComponent, useControls } from "react-zoom-pan-pinch";
+import { useCallback, useContext, useEffect, useRef } from "react";
 import { DeckContext } from "../DeckContext";
 import Card from "./Card";
 import './Board.scss';
 
-//the board contains all cards as well as transformwrapper + component which can be dragged / zoomed
+
+
 function Board() {
     const { deck, boardMoveDisabled } = useContext(DeckContext);
+    const boardRef = useRef(null);
+
+    useEffect(() => {
+        if (boardRef.current) {
+            const newX = -(deck[0].cardPosX + 250 - (window.innerWidth / 2));
+            const newY = -(deck[0].cardPosY + 150 - (window.innerHeight / 2));
+            boardRef.current.setTransform(newX, newY, 1, 0);
+        }
+    }, [deck[0].rootName]);
+
     return (
         <>
             <TransformWrapper
@@ -16,10 +27,13 @@ function Board() {
                 maxScale={1}
                 limitToBounds={false}
                 pinch={{ step: 5 }}
+                ref={boardRef}
             >
                 <TransformComponent>
                     <main>
                         {deck.map(i => <Card
+                            rootName={i.rootName}
+                            rootAuthor={i.rootAuthor}
                             key={i.key}
                             indexKey={i.indexKey}
                             cardPosX={i.cardPosX}
@@ -29,8 +43,6 @@ function Board() {
                             cardStyle={i.cardStyle}
                             cardText={i.cardText}
                             cardImage={i.cardImage}
-                            rootName={i.rootName}
-                            rootAuthor={i.rootAuthor}
                         ></Card>)}
                     </main>
                 </TransformComponent>
