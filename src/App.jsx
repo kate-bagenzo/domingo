@@ -4,6 +4,7 @@ import Board from './components/Board';
 import SpawnMenu from './components/SpawnMenu';
 
 import domingo from './domingo';
+import localforage from 'localforage';
 import './App.scss';
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
   //save non-default decks
   useEffect(() => {
     if (deck[0].rootName != 'domingo guide') {
-      localStorage.setItem('domingo-deck:' + deck[0].rootName, JSON.stringify(deck));
+      localforage.setItem(`domingo-board:${deck[0].rootName}`, JSON.stringify(deck));
     }
 
   }, [deck]);

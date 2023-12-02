@@ -1,9 +1,10 @@
 import { createContext } from 'react';
 import { reX, reY, transform } from './PositionHelpers';
+import localforage from 'localforage';
 
 export const DeckContext = createContext([]);
 
-// get the position of a card based on click events
+// return the position of a card based on click events
 export const getCardPosByMouse = (e) => {
     const x = e.clientX;
     const y = e.clientY;
@@ -16,7 +17,7 @@ export const getCardPosByMouse = (e) => {
     return cardPos;
 }
 
-// get the default text of a card based on its style
+// return the default text of a card based on its style
 export const getCardDefaultText = (cardStyle) => {
     let defaultText = 'new card';
     switch (cardStyle) {

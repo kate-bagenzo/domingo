@@ -1,15 +1,17 @@
-import { useContext, useRef, useState } from 'react';
+import { useCallback, useContext, useRef, useState } from 'react';
 import { produce } from 'immer';
 import { DeckContext } from '../DeckContext';
 import { Rnd } from 'react-rnd';
 
-import { reX, reY, transform } from '../PositionHelpers';
+import { reX, reY } from '../PositionHelpers';
+import localforage from 'localforage';
 import './Card.scss';
 
 //the most basic type of card, includes all editable text/image cards
 function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, cardText, cardImage, rootName, rootAuthor }) {
     const { deck, setDeck, setBoardMoveDisabled } = useContext(DeckContext);
     const [edit, setEdit] = useState(false);
+    const [boardList, setBoardList] = useState([]);
     const cardRef = useRef(null);
 
     //update all board data
@@ -29,7 +31,7 @@ function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
 
         }))
         if (oldDeckName != e.target.rootName.value) {
-            localStorage.removeItem('domingo-deck:' + oldDeckName);
+            localforage.removeItem('domingo-deck:' + oldDeckName);
         }
         setEdit(false);
         setBoardMoveDisabled(false);
@@ -52,8 +54,7 @@ function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
         if (e.target.value == 'new board') {
             setDeck(newDeck);
         } else {
-            newDeck = JSON.parse(localStorage.getItem(e.target.value));
-            setDeck(newDeck);
+            localforage.getItem(e.target.value).then((deck) => setDeck(JSON.parse(deck)));
         }
         setEdit(false);
         setBoardMoveDisabled(false);
@@ -108,6 +109,10 @@ function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
         }));
     }
 
+    const getBoardList = useCallback(() => {
+        localforage.keys().then((keys) => setBoardList(keys));
+    }, []);
+
     if (cardStyle == 'card-root') {
         return (
             <>
@@ -153,13 +158,13 @@ function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                                 <label htmlFor='switchBoard'>switch board:</label>
                                 <select id='switchBoard' onChange={handleBoardSwitch}>
                                     <option value=''>select...</option>
-                                    {Object.keys({ ...localStorage }).map(i => <option key={i} value={i}>{JSON.parse({ ...localStorage }[i])[0].rootName}</option>)}
+                                    {boardList ? (boardList.map(i => <option key={i} value={i}>{i}</option>)) : (<></>)}
                                     <option value='new board'>new...</option>
                                 </select>
                             </div>
                         </div >
                     ) : (
-                        <div onDoubleClick={handleEdit} className={`card ${cardStyle}`} ref={cardRef}>
+                        <div onDoubleClick={(e) => { handleEdit(e); getBoardList(); }} className={`card ${cardStyle}`} ref={cardRef}>
                             <div className='rootdisplay'>
                                 <h1>{rootName}</h1>
                                 <h2>by {rootAuthor}</h2>
