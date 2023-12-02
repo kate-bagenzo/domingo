@@ -20,14 +20,16 @@ function App() {
     rootAuthor: 'anonymous'
   }]);
   const [boardMoveDisabled, setBoardMoveDisabled] = useState(false);
+  const [boardList, setBoardList] = useState([]);
 
   //load and save
-  //load default deck on startup
+  //load default board & retrieve stored board list on startup
   useEffect(() => {
     setDeck(JSON.parse(domingo));
+    localforage.keys().then((keys) => setBoardList(keys));
   }, []);
 
-  //save non-default decks
+  //save board (unless it's the default board)
   useEffect(() => {
     if (deck[0].rootName != 'domingo guide') {
       localforage.setItem(`domingo-board:${deck[0].rootName}`, JSON.stringify(deck));
@@ -55,7 +57,7 @@ function App() {
   }
   return (
     <>
-      <DeckContext.Provider value={{ deck, setDeck, addCard, getCardPosByMouse, boardMoveDisabled, setBoardMoveDisabled }}>
+      <DeckContext.Provider value={{ deck, setDeck, addCard, getCardPosByMouse, boardMoveDisabled, setBoardMoveDisabled, boardList, setBoardList }}>
         <aside onDoubleClick={addCard}>
           <Board></Board>
         </aside>

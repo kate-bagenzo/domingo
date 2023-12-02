@@ -9,9 +9,8 @@ import './Card.scss';
 
 //the most basic type of card, includes all editable text/image cards
 function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, cardText, cardImage, rootName, rootAuthor }) {
-    const { deck, setDeck, setBoardMoveDisabled } = useContext(DeckContext);
+    const { deck, setDeck, setBoardMoveDisabled, boardList, setBoardList } = useContext(DeckContext);
     const [edit, setEdit] = useState(false);
-    const [boardList, setBoardList] = useState([]);
     const cardRef = useRef(null);
 
     //update all board data
@@ -35,6 +34,7 @@ function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
         }
         setEdit(false);
         setBoardMoveDisabled(false);
+        localforage.keys().then((keys) => setBoardList(keys));
     }
 
     //switch between boards
@@ -109,10 +109,6 @@ function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
         }));
     }
 
-    const getBoardList = useCallback(() => {
-        localforage.keys().then((keys) => setBoardList(keys));
-    }, []);
-
     if (cardStyle == 'card-root') {
         return (
             <>
@@ -164,7 +160,7 @@ function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                             </div>
                         </div >
                     ) : (
-                        <div onDoubleClick={(e) => { handleEdit(e); getBoardList(); }} className={`card ${cardStyle}`} ref={cardRef}>
+                        <div onDoubleClick={handleEdit} className={`card ${cardStyle}`} ref={cardRef}>
                             <div className='rootdisplay'>
                                 <h1>{rootName}</h1>
                                 <h2>by {rootAuthor}</h2>
