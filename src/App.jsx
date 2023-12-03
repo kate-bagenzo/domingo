@@ -32,7 +32,7 @@ function App() {
   //save board (unless it's the default board)
   useEffect(() => {
     if (deck[0].rootName != 'domingo guide') {
-      localforage.setItem(`domingo-board:${deck[0].rootName}`, JSON.stringify(deck));
+      localforage.setItem(deck[0].rootName, JSON.stringify(deck));
     }
 
   }, [deck]);

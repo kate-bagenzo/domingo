@@ -30,7 +30,7 @@ function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
 
         }))
         if (oldDeckName != e.target.rootName.value) {
-            localforage.removeItem('domingo-deck:' + oldDeckName);
+            localforage.removeItem(oldDeckName);
         }
         setEdit(false);
         setBoardMoveDisabled(false);
@@ -149,15 +149,15 @@ function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
 
                                 </div >)
                             }
-                            <div className='controlpanel'>
-
-                                <label htmlFor='switchBoard'>switch board:</label>
-                                <select id='switchBoard' onChange={handleBoardSwitch}>
-                                    <option value=''>select...</option>
-                                    {boardList ? (boardList.map(i => <option key={i} value={i}>{i}</option>)) : (<></>)}
-                                    <option value='new board'>new...</option>
-                                </select>
-                            </div>
+                            {rootName == 'new board' ? (<></>) : (
+                                <div className='controlpanel'>
+                                    <label htmlFor='switchBoard'>switch board:</label>
+                                    <select id='switchBoard' onChange={handleBoardSwitch}>
+                                        <option value=''>select...</option>
+                                        {boardList ? (boardList.map(i => <option key={i} value={i}>{i}</option>)) : (<></>)}
+                                        <option value='new board'>new...</option>
+                                    </select>
+                                </div>)}
                         </div >
                     ) : (
                         <div onDoubleClick={handleEdit} className={`card ${cardStyle}`} ref={cardRef}>
