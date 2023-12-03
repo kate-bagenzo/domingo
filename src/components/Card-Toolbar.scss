@@ -1,0 +1,24 @@
+@import '../colors.scss';
+
+* {
+    box-sizing: border-box;
+}
+
+.card-toolbar {
+    width: 100px;
+    height: 200px;
+    padding: 0.5rem;
+    background-color: green;
+    position: relative;
+    right: 120px;
+    bottom: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+
+    button {
+        width: 90%;
+    }
+}

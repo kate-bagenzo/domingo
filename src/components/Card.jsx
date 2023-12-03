@@ -6,12 +6,15 @@ import { Rnd } from 'react-rnd';
 import { reX, reY } from '../PositionHelpers';
 import localforage from 'localforage';
 import './Card.scss';
+import './Card-Toolbar.scss';
 
 //the most basic type of card, includes all editable text/image cards
 function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, cardText, cardImage, rootName, rootAuthor }) {
     const { deck, setDeck, setBoardMoveDisabled, boardList, setBoardList } = useContext(DeckContext);
     const [edit, setEdit] = useState(false);
     const cardRef = useRef(null);
+    const textRef = useRef(null);
+    const imageRef = useRef(null);
 
     //update all board data
     const handleBoardEdit = (e) => {
@@ -67,16 +70,19 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
     }
 
     // create new deck w/different card text
-    const updateCardText = (e) => {
-        handleEdit(e);
+    const updateCardText = () => {
+        const cardText = textRef.current.value;
         setDeck(produce(draft => {
-            draft[deck.findIndex(i => i.localKey === localKey)].cardText = e.target.value;
-        }))
+            draft[deck.findIndex(i => i.localKey === localKey)].cardText = cardText;
+        }));
+
+        setEdit(!edit);
     }
 
     // create new deck w/different card image
     const updateCardImage = (e) => {
-        const file = e.target.files[0];
+        console.log(e);
+        const file = e.target.value;
         const reader = new FileReader();
         reader.onloadend = () => {
             const result = reader.result;
@@ -106,6 +112,13 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
         setDeck(produce(draft => {
             draft[deck.findIndex(i => i.localKey === localKey)].cardWidth = width;
             draft[deck.findIndex(i => i.localKey === localKey)].cardHeight = height;
+        }));
+    }
+
+    //remove card from deck
+    const deleteCard = () => {
+        setDeck(produce(draft => {
+            draft.splice(deck.findIndex(i => i.localKey === localKey), 1);
         }));
     }
 
@@ -194,24 +207,31 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                 onResizeStop={updateCardSize}
             >
                 {edit ? (
-                    <div className={`card ${cardStyle}`}
-                        onClick={(e) => e.stopPropagation()}
-                        onDoubleClick={(e) => e.stopPropagation()}
-                        ref={cardRef}
-                    >
-                        {cardStyle == 'card-image' ? (
-                            <div onDoubleClick={handleEdit}>
-                                <input type='file' onChange={(e) => updateCardImage(e)}></input>
-                            </div>
-                        ) : (
-                            <textarea
-                                autoFocus={true}
-                                defaultValue={cardText}
-                                onBlur={(e) => { updateCardText(e) }}
-                            >
-                            </textarea>)}
-
-                    </div>
+                    <>
+                        <div className={`card ${cardStyle}`}
+                            onClick={(e) => e.stopPropagation()}
+                            onDoubleClick={(e) => e.stopPropagation()}
+                            ref={cardRef}
+                        >
+                            {cardStyle == 'card-image' ? (
+                                <div>
+                                    <input type='file' onChange={(e) => updateCardImage(e)}></input>
+                                </div>
+                            ) : (
+                                <textarea
+                                    autoFocus={true}
+                                    defaultValue={cardText}
+                                    ref={textRef}
+                                >
+                                </textarea>)}
+                        </div>
+                        <div className='card-toolbar'>
+                            <button onClick={updateCardText}>save</button>
+                            <button>bg color</button>
+                            <button>text color</button>
+                            <button onClick={deleteCard}>delete</button>
+                        </div>
+                    </>
                 ) : (
                     <div onDoubleClick={handleEdit} className={`card ${cardStyle}`} ref={cardRef}>
                         {cardStyle == 'card-image' ? (<img src={cardImage}></img>) : <>{cardText}</>}
