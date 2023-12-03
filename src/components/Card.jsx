@@ -70,19 +70,20 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
     }
 
     // create new deck w/different card text
-    const updateCardText = () => {
-        const cardText = textRef.current.value;
-        setDeck(produce(draft => {
-            draft[deck.findIndex(i => i.localKey === localKey)].cardText = cardText;
-        }));
-
+    const updateCardData = () => {
+        if (textRef.current) {
+            const cardText = textRef.current.value;
+            setDeck(produce(draft => {
+                draft[deck.findIndex(i => i.localKey === localKey)].cardText = cardText;
+            }));
+        }
         setEdit(!edit);
     }
 
     // create new deck w/different card image
     const updateCardImage = (e) => {
         console.log(e);
-        const file = e.target.value;
+        const file = e.target.files[0];
         const reader = new FileReader();
         reader.onloadend = () => {
             const result = reader.result;
@@ -226,7 +227,7 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                                 </textarea>)}
                         </div>
                         <div className='card-toolbar'>
-                            <button onClick={updateCardText}>save</button>
+                            <button onClick={updateCardData}>save</button>
                             <button>bg color</button>
                             <button>text color</button>
                             <button onClick={deleteCard}>delete</button>
