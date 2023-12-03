@@ -22,34 +22,44 @@ function App() {
   }]);
   const [boardMoveDisabled, setBoardMoveDisabled] = useState(false);
   const [boardList, setBoardList] = useState([]);
-  const [globalKey, setGlobalKey] = useState(0);
+  const [globalKey, setGlobalKey] = useState(1);
 
   //load and save
   //load default board & retrieve stored board list on startup
   useEffect(() => {
     setDeck(JSON.parse(domingo));
     localforage.keys().then((keys) => setBoardList(keys));
-    setGlobalKey(localStorage.getItem(globalKey));
+    setGlobalKey(Number(localStorage.getItem('globalKey')));
+    console.log(`KEY LOADED. KEY VALUE: ${Number(JSON.parse(localStorage.getItem('globalKey')))}`);
   }, []);
 
   //save board (unless it's the default board)
   useEffect(() => {
     if (deck[0].rootName != 'domingo guide') {
       localforage.setItem(deck[0].rootName, JSON.stringify(deck));
-      localStorage.setItem('globalKey', globalKey);
     }
 
   }, [deck]);
+
+  //save global key
+  useEffect(() => {
+    if (deck[0].rootName != 'domingo guide') {
+      localStorage.setItem('globalKey', globalKey);
+      console.log(`KEY SAVED. KEY VALUE: ${globalKey}`);
+    }
+  }, [globalKey])
 
   //add card to deck
   const addCard = (e) => {
     const cardPos = getCardPosByMouse(e);
     const cardStyle = e.target.name ? (e.target.name) : ('card-text');
     const cardText = getCardDefaultText(cardStyle);
+    const nextKey = globalKey + 1;
+    setGlobalKey(nextKey);
 
     setDeck(deck.concat({
-      key: (`${deck[0].rootName}:${globalKey}`),
-      localKey: `${deck[0].rootName}:${globalKey}`,
+      key: (`${deck[0].rootName}:${nextKey}`),
+      localKey: `${deck[0].rootName}:${nextKey}`,
       cardPosX: cardPos.x,
       cardPosY: cardPos.y,
       cardWidth: 200,
@@ -58,7 +68,6 @@ function App() {
       cardText: cardText,
       cardImage: "test.png"
     }));
-    setGlobalKey(globalKey + 1);
     console.log(deck);
   }
   return (
