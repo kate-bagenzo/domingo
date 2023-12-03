@@ -29,14 +29,14 @@ function App() {
   useEffect(() => {
     setDeck(JSON.parse(domingo));
     localforage.keys().then((keys) => setBoardList(keys));
-    localforage.getItem('globalKey').then((globalKey) => setGlobalKey(JSON.parse(globalKey)));
+    setGlobalKey(localStorage.getItem(globalKey));
   }, []);
 
   //save board (unless it's the default board)
   useEffect(() => {
     if (deck[0].rootName != 'domingo guide') {
       localforage.setItem(deck[0].rootName, JSON.stringify(deck));
-      localforage.setItem(globalKey, JSON.stringify(globalKey));
+      localStorage.setItem('globalKey', globalKey);
     }
 
   }, [deck]);
@@ -59,6 +59,7 @@ function App() {
       cardImage: "test.png"
     }));
     setGlobalKey(globalKey + 1);
+    console.log(deck);
   }
   return (
     <>

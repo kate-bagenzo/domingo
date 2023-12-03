@@ -6,6 +6,7 @@
 
 body {
     background-color: $primary-bg-color;
+    font-size: 20px;
 }
 
 .card {
@@ -17,6 +18,7 @@ body {
     justify-content: center;
     padding: 1rem;
     overflow: hidden;
+    font-size: 16px;
 
     textarea {
         resize: none;
@@ -115,6 +117,7 @@ body {
     justify-content: flex-end;
     gap: 0.5rem;
     height: 300px;
+    font-size: 20px;
 
     .rootdisplay {
         width: 100%;
