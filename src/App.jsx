@@ -8,9 +8,10 @@ import localforage from 'localforage';
 import './App.scss';
 
 function App() {
+  //state
   const [deck, setDeck] = useState([{
-    key: 'domingo guide:' + 0,
-    indexKey: 0,
+    key: `domingo guide:${0}`,
+    localKey: 0,
     cardPosX: 0,
     cardPosY: 0,
     cardWidth: 500,
@@ -21,12 +22,14 @@ function App() {
   }]);
   const [boardMoveDisabled, setBoardMoveDisabled] = useState(false);
   const [boardList, setBoardList] = useState([]);
+  const [globalKey, setGlobalKey] = useState(0);
 
   //load and save
   //load default board & retrieve stored board list on startup
   useEffect(() => {
     setDeck(JSON.parse(domingo));
     localforage.keys().then((keys) => setBoardList(keys));
+    localforage.getItem('globalKey').then((globalKey) => setGlobalKey(globalKey));
   }, []);
 
   //save board (unless it's the default board)
@@ -44,8 +47,8 @@ function App() {
     const cardText = getCardDefaultText(cardStyle);
 
     setDeck(deck.concat({
-      key: (deck[0].rootName + ':' + deck.length),
-      indexKey: deck.length,
+      key: (`${deck[0].rootName}:${globalKey}`),
+      localKey: `${deck[0].rootName}:${globalKey}`,
       cardPosX: cardPos.x,
       cardPosY: cardPos.y,
       cardWidth: 200,
@@ -54,6 +57,7 @@ function App() {
       cardText: cardText,
       cardImage: "test.png"
     }));
+    setGlobalKey(globalKey + 1);
   }
   return (
     <>

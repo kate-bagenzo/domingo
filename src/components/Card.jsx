@@ -8,7 +8,7 @@ import localforage from 'localforage';
 import './Card.scss';
 
 //the most basic type of card, includes all editable text/image cards
-function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, cardText, cardImage, rootName, rootAuthor }) {
+function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, cardText, cardImage, rootName, rootAuthor }) {
     const { deck, setDeck, setBoardMoveDisabled, boardList, setBoardList } = useContext(DeckContext);
     const [edit, setEdit] = useState(false);
     const cardRef = useRef(null);
@@ -41,7 +41,7 @@ function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
     const handleBoardSwitch = (e) => {
         let newDeck = [{
             key: 'new board:' + 0,
-            indexKey: 0,
+            localKey: 0,
             cardPosX: 0,
             cardPosY: 0,
             cardWidth: 500,
@@ -70,7 +70,7 @@ function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
     const updateCardText = (e) => {
         handleEdit(e);
         setDeck(produce(draft => {
-            draft[indexKey].cardText = e.target.value;
+            draft[deck.findIndex(i => i.localKey === localKey)].cardText = e.target.value;
         }))
     }
 
@@ -81,7 +81,7 @@ function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
         reader.onloadend = () => {
             const result = reader.result;
             setDeck(produce(draft => {
-                draft[indexKey].cardImage = result;
+                draft[deck.findIndex(i => i.localKey === localKey)].cardImage = result;
             }));
         }
         reader.readAsDataURL(file);
@@ -93,8 +93,8 @@ function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
         const posX = Number(card.style.transform.match(reX)[1]);
         const posY = Number(card.style.transform.match(reY) ? (card.style.transform.match(reY)[1]) : (0));
         setDeck(produce(draft => {
-            draft[indexKey].cardPosX = posX;
-            draft[indexKey].cardPosY = posY;
+            draft[deck.findIndex(i => i.localKey === localKey)].cardPosX = posX;
+            draft[deck.findIndex(i => i.localKey === localKey)].cardPosY = posY;
         }));
     }
 
@@ -104,8 +104,8 @@ function Card({ indexKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
         const width = parseInt(card.style.width);
         const height = parseInt(card.style.height);
         setDeck(produce(draft => {
-            draft[indexKey].cardWidth = width;
-            draft[indexKey].cardHeight = height;
+            draft[deck.findIndex(i => i.localKey === localKey)].cardWidth = width;
+            draft[deck.findIndex(i => i.localKey === localKey)].cardHeight = height;
         }));
     }
 

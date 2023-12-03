@@ -35,7 +35,7 @@ function Board() {
                             rootName={i.rootName}
                             rootAuthor={i.rootAuthor}
                             key={i.key}
-                            indexKey={i.indexKey}
+                            localKey={i.localKey}
                             cardPosX={i.cardPosX}
                             cardPosY={i.cardPosY}
                             cardWidth={i.cardWidth}
