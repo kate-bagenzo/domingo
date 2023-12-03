@@ -29,13 +29,14 @@ function App() {
   useEffect(() => {
     setDeck(JSON.parse(domingo));
     localforage.keys().then((keys) => setBoardList(keys));
-    localforage.getItem('globalKey').then((globalKey) => setGlobalKey(globalKey));
+    localforage.getItem('globalKey').then((globalKey) => setGlobalKey(JSON.parse(globalKey)));
   }, []);
 
   //save board (unless it's the default board)
   useEffect(() => {
     if (deck[0].rootName != 'domingo guide') {
       localforage.setItem(deck[0].rootName, JSON.stringify(deck));
+      localforage.setItem(globalKey, JSON.stringify(globalKey));
     }
 
   }, [deck]);
