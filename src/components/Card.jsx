@@ -14,7 +14,6 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
     const [edit, setEdit] = useState(false);
     const cardRef = useRef(null);
     const textRef = useRef(null);
-    const imageRef = useRef(null);
 
     //update all board data
     const handleBoardEdit = (e) => {
@@ -82,7 +81,6 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
 
     // create new deck w/different card image
     const updateCardImage = (e) => {
-        console.log(e);
         const file = e.target.files[0];
         const reader = new FileReader();
         reader.onloadend = () => {
@@ -226,7 +224,7 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                                 >
                                 </textarea>)}
                         </div>
-                        <div className='card-toolbar'>
+                        <div className='card-toolbar' onDoubleClick={(e) => e.stopPropagation()}>
                             <button onClick={updateCardData}>save</button>
                             <button>bg color</button>
                             <button>text color</button>

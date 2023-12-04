@@ -30,7 +30,6 @@ function App() {
     setDeck(JSON.parse(domingo));
     localforage.keys().then((keys) => setBoardList(keys));
     setGlobalKey(Number(localStorage.getItem('globalKey')));
-    console.log(`KEY LOADED. KEY VALUE: ${Number(JSON.parse(localStorage.getItem('globalKey')))}`);
   }, []);
 
   //save board (unless it's the default board)
@@ -45,7 +44,6 @@ function App() {
   useEffect(() => {
     if (deck[0].rootName != 'domingo guide') {
       localStorage.setItem('globalKey', globalKey);
-      console.log(`KEY SAVED. KEY VALUE: ${globalKey}`);
     }
   }, [globalKey])
 
@@ -68,7 +66,6 @@ function App() {
       cardText: cardText,
       cardImage: "test.png"
     }));
-    console.log(deck);
   }
   return (
     <>
