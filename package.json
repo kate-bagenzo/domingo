@@ -10,6 +10,7 @@
     "preview": "vite preview --port 1234"
   },
   "dependencies": {
+    "compressorjs": "^1.2.1",
     "immer": "^10.0.3",
     "localforage": "^1.10.0",
     "normalize.css": "^8.0.1",
