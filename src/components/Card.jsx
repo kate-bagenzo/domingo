@@ -5,6 +5,7 @@ import { Rnd } from 'react-rnd';
 
 import { reX, reY } from '../PositionHelpers';
 import localforage from 'localforage';
+import Compressor from 'compressorjs';
 import './Card.scss';
 import './Card-Toolbar.scss';
 
@@ -89,7 +90,20 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                 draft[deck.findIndex(i => i.localKey === localKey)].cardImage = result;
             }));
         }
-        reader.readAsDataURL(file);
+        new Compressor(file,
+            {
+                quality: 0.6,
+                checkOrientation: false,
+                mimeType: 'image/jpeg',
+
+                success(result) {
+                    reader.readAsDataURL(result);
+                },
+
+                error(err) {
+                    console.log(err.message);
+                },
+            });
     }
 
     // create new deck w/different card position
