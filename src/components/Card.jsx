@@ -10,7 +10,7 @@ import './Card.scss';
 import './Card-Toolbar.scss';
 
 //the most basic type of card, includes all editable text/image cards
-function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, cardText, cardImage, rootName, rootAuthor }) {
+function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, cardText, cardImage, cardDate, rootName, rootAuthor }) {
     const { deck, setDeck, setBoardMoveDisabled, boardList, setBoardList } = useContext(DeckContext);
     const [edit, setEdit] = useState(false);
     const cardRef = useRef(null);
@@ -161,26 +161,26 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                             onDoubleClick={(e) => e.stopPropagation()}
                             ref={cardRef}
                         >
-                            {rootName == 'domingo guide' ? (<></>) : (
+                            {rootName == 'domingo guide' ? (null) : (
                                 <div className='controlpanel'>
                                     <form onSubmit={handleBoardEdit}>
                                         <label htmlFor='rootName'>board name:</label>
-                                        <input type='text' id='rootName' defaultValue={rootName}></input>
+                                        <input type='text' id='rootName' maxLength={20} defaultValue={rootName}></input>
 
                                         <label htmlFor='rootAuthor'>author:</label>
-                                        <input type='text' id='rootAuthor' defaultValue={rootAuthor}></input>
+                                        <input type='text' id='rootAuthor' maxLength={20} defaultValue={rootAuthor}></input>
 
                                         <input type='submit' value='save board'></input>
                                     </form>
 
                                 </div >)
                             }
-                            {rootName == 'new board' ? (<></>) : (
+                            {rootName == 'new board' ? (null) : (
                                 <div className='controlpanel'>
                                     <label htmlFor='switchBoard'>switch board:</label>
                                     <select id='switchBoard' onChange={handleBoardSwitch}>
                                         <option value=''>select...</option>
-                                        {boardList ? (boardList.map(i => <option key={i} value={i}>{i}</option>)) : (<></>)}
+                                        {boardList ? (boardList.map(i => <option key={i} value={i}>{i}</option>)) : (null)}
                                         <option value='new board'>new...</option>
                                     </select>
                                 </div>)}
@@ -247,6 +247,8 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                     </>
                 ) : (
                     <div onDoubleClick={handleEdit} className={`card ${cardStyle}`} ref={cardRef}>
+                        {cardStyle == 'card-diary' ? (<><h3>{(cardDate).toLocaleString('default', { month: 'long', day: 'numeric' })}</h3>
+                            <time>{(cardDate).toLocaleTimeString('default', { hour12: true, timeStyle: 'short' })}</time></>) : (null)}
                         {cardStyle == 'card-image' ? (<img src={cardImage}></img>) : <>{cardText}</>}
                     </div>
                 )}

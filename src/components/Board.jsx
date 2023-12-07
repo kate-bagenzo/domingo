@@ -43,6 +43,7 @@ function Board() {
                             cardStyle={i.cardStyle}
                             cardText={i.cardText}
                             cardImage={i.cardImage}
+                            cardDate={i.cardDate}
                         ></Card>)}
                     </main>
                 </TransformComponent>

@@ -29,6 +29,7 @@ function Menu({ style }) {
                 <Item itemText={'new note'} cardType={'card-note'}></Item>
                 <Item itemText={'new code'} cardType={'card-code'}></Item>
                 <Item itemText={'new image'} cardType={'card-image'}></Item>
+                <Item itemText={'new diary'} cardType={'card-diary'}></Item>
             </menu>
         </>
     )

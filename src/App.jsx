@@ -64,7 +64,8 @@ function App() {
       cardHeight: 200,
       cardStyle: cardStyle,
       cardText: cardText,
-      cardImage: "test.png"
+      cardImage: cardStyle == 'card-image' ? ('test.png') : (undefined),
+      cardDate: cardStyle == 'card-diary' ? (new Date()) : (undefined)
     }));
   }
   return (

@@ -30,8 +30,11 @@ export const getCardDefaultText = (cardStyle) => {
         case 'card-code':
             defaultText = '//new code';
             break;
+        case 'card-diary':
+            defaultText = 'new diary entry'
+            break;
         case 'card-image':
-            defaultText = 'image missing';
+            defaultText = undefined;
             break;
     }
     return defaultText;
