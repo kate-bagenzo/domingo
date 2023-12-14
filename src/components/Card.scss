@@ -4,8 +4,8 @@
     box-sizing: border-box;
 }
 
-body {
-    background-color: $primary-bg-color;
+main {
+    background-color: var(--primary-bg-color);
     font-size: 20px;
 }
 
@@ -20,6 +20,7 @@ body {
     overflow: hidden;
     font-size: 16px;
     white-space: pre-line;
+    color: var(--primary-text-color);
 
     textarea {
         resize: none;
@@ -35,17 +36,17 @@ body {
 
 .card-text {
     z-index: 1;
-    background-color: $primary-card-color;
-    box-shadow: $card-border-outer, $card-border-inner;
+    background-color: var(--primary-card-color);
+    box-shadow: var(--card-border-outer), var(--card-border-inner);
 
     textarea {
-        background-color: $editable-card-color;
+        background-color: var(--editable-card-color);
     }
 }
 
 .card-header {
     z-index: 2;
-    background-color: $header-color;
+    background-color: var(--header-color);
     color: white;
     border: 1px solid white;
     align-items: center;
@@ -53,19 +54,19 @@ body {
     text-align: center;
 
     textarea {
-        background-color: $header-color;
+        background-color: var(--header-color);
         color: white;
     }
 }
 
 .card-note {
     z-index: 3;
-    background-color: $note-color;
+    background-color: var(--note-color);
     border: 1px solid black;
     border-radius: 8px;
 
     textarea {
-        background-color: $note-color;
+        background-color: var(--note-color);
     }
 
 }
@@ -88,8 +89,8 @@ body {
 }
 
 .card-image {
-    background-color: $primary-card-color;
-    box-shadow: $card-border-outer, $card-border-inner;
+    background-color: var(--primary-card-color);
+    box-shadow: var(--card-border-outer), var(--card-border-inner);
     padding: 0.5rem;
 
     img {
@@ -112,8 +113,8 @@ body {
 
 .card-diary {
     z-index: 1;
-    background-color: $primary-card-color;
-    box-shadow: $card-border-outer, $card-border-inner;
+    background-color: var(--primary-card-color);
+    box-shadow: var(--card-border-outer), var(--card-border-inner);
     padding-top: 0;
     display: flex;
     flex-direction: column;
@@ -121,7 +122,7 @@ body {
     justify-content: flex-start;
 
     textarea {
-        background-color: $editable-card-color;
+        background-color: var(--editable-card-color);
         margin-top: 1rem;
     }
 
@@ -140,7 +141,7 @@ body {
 }
 
 .card-root {
-    background-color: $header-color;
+    background-color: var(--header-color);
     border: 1px solid white;
     color: white;
     align-items: flex-end;
