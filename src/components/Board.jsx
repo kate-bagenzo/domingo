@@ -43,7 +43,7 @@ function Board() {
                             cardStyle={i.cardStyle}
                             cardText={i.cardText}
                             cardImage={i.cardImage}
-                            cardDate={i.cardDate}
+                            cardDate={i.cardDate ? (new Date(i.cardDate)) : (undefined)}
                         ></Card>)}
                     </ul>
                 </TransformComponent>
