@@ -23,6 +23,7 @@ function App() {
   const [boardMoveDisabled, setBoardMoveDisabled] = useState(false);
   const [boardList, setBoardList] = useState([]);
   const [globalKey, setGlobalKey] = useState(1);
+  const [theme, setTheme] = useState('theme-chicago');
 
   //load and save
   //load default board & retrieve stored board list on startup
@@ -70,12 +71,14 @@ function App() {
   }
   return (
     <>
-      <DeckContext.Provider value={{ deck, setDeck, addCard, getCardPosByMouse, boardMoveDisabled, setBoardMoveDisabled, boardList, setBoardList }}>
-        <aside onDoubleClick={addCard}>
-          <Board></Board>
-        </aside>
-        <SpawnMenu ></SpawnMenu>
-      </DeckContext.Provider >
+      <main className={theme}>
+        <DeckContext.Provider value={{ deck, setDeck, addCard, getCardPosByMouse, boardMoveDisabled, setBoardMoveDisabled, boardList, setBoardList }}>
+          <aside onDoubleClick={addCard}>
+            <Board></Board>
+          </aside>
+          <SpawnMenu ></SpawnMenu>
+        </DeckContext.Provider >
+      </main>
     </>
   )
 }

@@ -30,7 +30,7 @@ function Board() {
                 ref={boardRef}
             >
                 <TransformComponent>
-                    <main>
+                    <ul>
                         {deck.map(i => <Card
                             rootName={i.rootName}
                             rootAuthor={i.rootAuthor}
@@ -45,7 +45,7 @@ function Board() {
                             cardImage={i.cardImage}
                             cardDate={i.cardDate}
                         ></Card>)}
-                    </main>
+                    </ul>
                 </TransformComponent>
             </TransformWrapper >
         </>

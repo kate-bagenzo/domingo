@@ -1,16 +1,45 @@
-$primary-card-color: #c0c0c0;
-$editable-card-color: #e0e0e0;
-$card-border-outer: inset -1px -1px #0a0a0a,
-    inset 1px 1px #ffffff;
-$card-border-inner: inset -2px -2px #808080,
-    inset 2px 2px #dfdfdf;
+//default
+* {
+    --card-width: 10rem;
+    --card-height: 10rem;
+}
 
-$card-width: 10rem;
-$card-height: 10rem;
+//chicago
+.theme-chicago {
+    --primary-card-color: #c0c0c0;
+    --editable-card-color: #e0e0e0;
+    --card-border-outer: inset -1px -1px #0a0a0a,
+        inset 1px 1px #ffffff;
+    --card-border-inner: inset -2px -2px #808080,
+        inset 2px 2px #dfdfdf;
 
-$primary-bg-color: #3a6ea5;
-$primary-select-color: #000080;
+    --primary-text-color: #000000;
+    --secondary-text-color: #ffffff;
+
+    --primary-bg-color: #3a6ea5;
+    --primary-select-color: #000080;
 
 
-$header-color: #000080;
-$note-color: #ededb4;
+    --header-color: #000080;
+    --note-color: #ededb4;
+}
+
+//darkmoon
+.theme-darkmoon {
+    --primary-card-color: #000719;
+    --editable-card-color: #000719;
+    --card-border-outer: inset -1px -1px #ffffff,
+        inset 1px 1px #ffffff;
+    --card-border-inner: inset -2px -2px #ffffff,
+        inset 2px 2px #ffffff;
+
+    --primary-text-color: #ffffff;
+    --secondary-text-color: #000000;
+
+    --primary-bg-color: #000719;
+    --primary-select-color: #ffffff;
+
+
+    --header-color: #000719;
+    --note-color: #000719b7;
+}
