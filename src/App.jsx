@@ -69,6 +69,22 @@ function App() {
       cardDate: cardStyle == 'card-diary' ? (Date()) : (undefined)
     }));
   }
+
+  //prevent default ctrl+s behavior
+  const handleSavePress = (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+      e.preventDefault();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleSavePress);
+
+    return () => {
+      document.removeEventListener('keydown', handleSavePress);
+    };
+  }, [handleSavePress]);
+
   return (
     <>
       <main className={theme}>
