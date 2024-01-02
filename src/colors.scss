@@ -4,6 +4,31 @@
     --card-height: 10rem;
 }
 
+//domingo
+.theme-domingo-light {
+    --primary-card-color: #ffffff;
+    --editable-card-color: #cacaca;
+
+    --card-border-outer: inset -1px -1px #0a0a0a,
+    inset 1px 1px #ffffff;
+    --card-border-inner: inset -2px -2px #808080,
+    inset 2px 2px #dfdfdf;
+
+    --primary-text-color: #000000;
+    --secondary-text-color: #ffffff;
+
+    --primary-bg-color: #533A7B;
+    --primary-select-color: #B497D6;
+
+
+    --header-color: #533A7B;
+    --note-color: #B486AB;
+}
+
+.theme-domingo-dark {
+    
+}
+
 //chicago
 .theme-chicago {
     --primary-card-color: #c0c0c0;
@@ -18,6 +43,9 @@
 
     --primary-bg-color: #3a6ea5;
     --primary-select-color: #000080;
+
+    --toolbar-color:#c0c0c0;
+    
 
 
     --header-color: #000080;

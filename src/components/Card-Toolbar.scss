@@ -8,7 +8,8 @@
     width: 100px;
     height: 200px;
     padding: 0.5rem;
-    background-color: green;
+    background-color: var(--toolbar-color);
+    box-shadow: var(--card-border-outer), var(--card-border-inner);
     position: relative;
     right: 120px;
     bottom: 100%;
