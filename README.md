@@ -1,5 +1,5 @@
 # domingo
 
-some kind of mindmapping thing inspired by [domino](https://kool.tools/domino2/)
+react-powered note taking tool inspired by [domino](https://kool.tools/domino2/)
 
-npm run dev to start
+either clone and `npm run dev`
