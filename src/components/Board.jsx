@@ -13,7 +13,7 @@ function Board() {
     useEffect(() => {
         if (boardRef.current) {
             const newX = -(deck[0].cardPosX + 250 - (window.innerWidth / 2));
-            const newY = -(deck[0].cardPosY + 125 - (window.innerHeight / 2));
+            const newY = -(deck[0].cardPosY + 100 - (window.innerHeight / 2));
             boardRef.current.setTransform(newX, newY, 1, 0);
         }
     }, [deck[0].rootName]);

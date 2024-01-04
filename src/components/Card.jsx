@@ -146,8 +146,8 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                         height: cardHeight,
                     }}
                     disableDragging={edit}
-                    minWidth={500}
-                    minHeight={250}
+                    minWidth={600}
+                    minHeight={200}
                     resizeGrid={[50, 50]}
                     dragGrid={[50, 50]}
                     onMouseDown={() => setBoardMoveDisabled(true)}
