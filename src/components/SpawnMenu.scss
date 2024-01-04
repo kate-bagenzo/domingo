@@ -12,8 +12,8 @@
     position: absolute;
     width: 200px;
     height: 300px;
-    background-color: var(--primary-card-color);
-    box-shadow: var(--card-border-outer), var(--card-border-inner);
+    background-color: $primary-card-color;
+    box-shadow: $card-border-outer, $card-border-inner;
 
     button {
         width: 90%;
@@ -22,8 +22,8 @@
         padding: 0.5rem;
         margin: 0;
         text-decoration: none;
-        color: var(--primary-text-color);
-        background-color: var(--primary-card-color);
+        color: $primary-text-color;
+        background-color: $primary-card-color;
         font-family: serif;
         font-size: 1rem;
         cursor: pointer;
@@ -36,8 +36,8 @@
 
         &:hover,
         &:focus {
-            background: var(--primary-select-color);
-            color: var(--secondary-text-color);
+            background: $primary-select-color;
+            color: $secondary-text-color;
         }
 
         &:active {

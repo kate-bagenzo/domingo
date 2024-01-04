@@ -5,10 +5,35 @@
     --card-height: 10rem;
 
 }
+
 $primary-card-color: var(--primary-card-color);
+$editable-card-color: var(--editable-card-color);
 
+$primary-font: var(--primary-font);
+$secondary-font: var(--secondary-font);
 
-//domingo
+$card-border-outer: var(--card-border-outer);
+$card-border-inner: var(--card-border-inner);
+
+$primary-text-color: var(--primary-text-color);
+$secondary-text-color: var(--secondary-text-color);
+
+$primary-bg-color: var(--primary-bg-color);
+$primary-select-color: var(--primary-select-color);
+
+$root-border: var(--root-border);
+$root-box-shadow: var(--root-box-shadow);
+
+$header-color: var(--header-color);
+
+$note-color: var(--note-color);
+$note-text-color: var(--note-text-color);
+$note-border-radius: var(--note-border-radius);
+$note-box-shadow: var(--note-box-shadow);
+
+$toolbar-color: var(--toolbar-color);
+
+//domingo (light)
 .theme-domingo-light {
     --primary-card-color: #ffffff;
     --editable-card-color: #cacaca;
@@ -29,6 +54,7 @@ $primary-card-color: var(--primary-card-color);
     --note-color: #B486AB;
 }
 
+//domingo (dark)
 .theme-domingo-dark {
     
 }
@@ -40,10 +66,10 @@ $primary-card-color: var(--primary-card-color);
 
     --primary-card-color: #ffffff;
     --editable-card-color: #e0e0e0;
-    --card-border-outer: inset -1px -1px #ffffff,
-    inset 1px 1px #ffffff;
-    --card-border-inner: inset -2px -2px #ffffff,
-    inset 2px 2px #ffffff;
+    --card-border-outer: inset -1px -1px #000000,
+    inset 1px 1px #000000;
+    --card-border-inner: inset -2px -2px #000000,
+    inset 2px 2px #000000;
     
     --primary-text-color: #000000;
     --secondary-text-color: #ffffff;
@@ -51,9 +77,11 @@ $primary-card-color: var(--primary-card-color);
     --primary-bg-color: #000000;
     --primary-select-color: #b90000;
 
-    --toolbar-color:#c0c0c0;
+    --toolbar-color:#ffffff;
 
     --root-box-shadow: 10px 10px #8b0000;
+
+    --root-border: none;
 
     --header-color: #b90000;
 

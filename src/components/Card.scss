@@ -1,3 +1,4 @@
+@import '../colors.scss';
 @font-face {
     font-family: 'Inter';
     src: url(../assets/theme-bagenzo/Inter-Regular.ttf);
@@ -8,19 +9,17 @@
     src: url(../assets/theme-bagenzo/Inconsolata-Regular.ttf);
 }
 
-@import '../colors.scss';
-
 * {
     box-sizing: border-box;
 }
 
 main {
-    background-color: var(--primary-bg-color);
+    background-color: $primary-bg-color;
     font-size: 20px;
 }
 
 .card {
-    font-family: var(--primary-font);
+    font-family: $primary-font;
     width: 100%;
     height: 100%;
 
@@ -31,10 +30,10 @@ main {
     overflow: hidden;
     font-size: 16px;
     white-space: pre-line;
-    color: var(--primary-text-color);
+    color: $primary-text-color;
 
     textarea {
-        font-family: var(--primary-font);
+        font-family: $primary-font;
         resize: none;
         width: 100%;
         height: 100%;
@@ -49,18 +48,18 @@ main {
 .card-text {
     z-index: 1;
     background-color: $primary-card-color;
-    box-shadow: var(--card-border-outer), var(--card-border-inner);
+    box-shadow: $card-border-outer, $card-border-inner;
 
     textarea {
-        font-family: var(--primary-font);
-        background-color: var(--editable-card-color);
+        font-family: $primary-font;
+        background-color: $editable-card-color;
     }
 }
 
 .card-header {
-    font-family: var(--secondary-font);
+    font-family: $secondary-font;
     z-index: 2;
-    background-color: var(--header-color);
+    background-color: $header-color;
     color: white;
     border: 1px solid white;
     align-items: center;
@@ -68,26 +67,26 @@ main {
     text-align: center;
 
     textarea {
-        font-family: var(--secondary-font);
-        background-color: var(--header-color);
+        font-family: $secondary-font;
+        background-color: $header-color;
         color: white;
     }
 }
 
 .card-note {
     z-index: 3;
-    color: var(--note-text-color);
-    background-color: var(--note-color);
+    color: $note-text-color;
+    background-color: $note-color;
     border: 1px solid black;
-    border-radius: var(--note-border-radius);
+    border-radius: $note-border-radius;
 
     transform: translate(-10px, -10px);
-    box-shadow: var(--note-box-shadow);
+    box-shadow: $note-box-shadow;
 
     textarea {
-        font-family: var(--primary-font);
-        background-color: var(--note-color);
-        color: var(--note-text-color);
+        font-family: $primary-font;
+        background-color: $note-color;
+        color: $note-text-color;
     }
 
 }
@@ -105,8 +104,8 @@ main {
 }
 
 .card-image {
-    background-color: var(--primary-card-color);
-    box-shadow: var(--card-border-outer), var(--card-border-inner);
+    background-color: $primary-card-color;
+    box-shadow: $card-border-outer, $card-border-inner;
     padding: 0.5rem;
 
     img {
@@ -129,8 +128,8 @@ main {
 
 .card-diary {
     z-index: 1;
-    background-color: var(--primary-card-color);
-    box-shadow: var(--card-border-outer), var(--card-border-inner);
+    background-color: $primary-card-color;
+    box-shadow: $card-border-outer, $card-border-inner;
     padding-top: 0;
     display: flex;
     flex-direction: column;
@@ -138,8 +137,8 @@ main {
     justify-content: flex-start;
 
     textarea {
-        font-family: var(--primary-font);
-        background-color: var(--editable-card-color);
+        font-family: $primary-font;
+        background-color: $editable-card-color;
         margin-top: 1rem;
     }
 
@@ -158,16 +157,16 @@ main {
 }
 
 .card-root {
-    font-family: var(--secondary-font);
-    background-color: var(--header-color);
-    border: 1px solid white;
+    font-family: $secondary-font;
+    background-color: $header-color;
+    border: $root-border;
     color: white;
     align-items: flex-end;
     justify-content: flex-end;
     gap: 0.5rem;
     height: 300px;
     font-size: 20px;
-    box-shadow: var(--root-box-shadow);
+    box-shadow: $root-box-shadow;
 
     .rootdisplay {
         width: 100%;
