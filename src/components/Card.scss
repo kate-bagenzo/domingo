@@ -1,3 +1,13 @@
+@font-face {
+    font-family: 'Inter';
+    src: url(../assets/theme-bagenzo/Inter-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Inconsolata';
+    src: url(../assets/theme-bagenzo/Inconsolata-Regular.ttf);
+}
+
 @import '../colors.scss';
 
 * {
@@ -10,6 +20,7 @@ main {
 }
 
 .card {
+    font-family: var(--primary-font);
     width: 100%;
     height: 100%;
 
@@ -23,6 +34,7 @@ main {
     color: var(--primary-text-color);
 
     textarea {
+        font-family: var(--primary-font);
         resize: none;
         width: 100%;
         height: 100%;
@@ -36,15 +48,17 @@ main {
 
 .card-text {
     z-index: 1;
-    background-color: var(--primary-card-color);
+    background-color: $primary-card-color;
     box-shadow: var(--card-border-outer), var(--card-border-inner);
 
     textarea {
+        font-family: var(--primary-font);
         background-color: var(--editable-card-color);
     }
 }
 
 .card-header {
+    font-family: var(--secondary-font);
     z-index: 2;
     background-color: var(--header-color);
     color: white;
@@ -54,6 +68,7 @@ main {
     text-align: center;
 
     textarea {
+        font-family: var(--secondary-font);
         background-color: var(--header-color);
         color: white;
     }
@@ -61,12 +76,18 @@ main {
 
 .card-note {
     z-index: 3;
+    color: var(--note-text-color);
     background-color: var(--note-color);
     border: 1px solid black;
-    border-radius: 8px;
+    border-radius: var(--note-border-radius);
+
+    transform: translate(-10px, -10px);
+    box-shadow: var(--note-box-shadow);
 
     textarea {
+        font-family: var(--primary-font);
         background-color: var(--note-color);
+        color: var(--note-text-color);
     }
 
 }
@@ -81,11 +102,6 @@ main {
         background-color: black;
         color: white;
     }
-}
-
-.card-note {
-    transform: translate(-10px, -10px);
-    box-shadow: 10px 10px 10px black;
 }
 
 .card-image {
@@ -122,6 +138,7 @@ main {
     justify-content: flex-start;
 
     textarea {
+        font-family: var(--primary-font);
         background-color: var(--editable-card-color);
         margin-top: 1rem;
     }
@@ -141,6 +158,7 @@ main {
 }
 
 .card-root {
+    font-family: var(--secondary-font);
     background-color: var(--header-color);
     border: 1px solid white;
     color: white;
@@ -149,6 +167,7 @@ main {
     gap: 0.5rem;
     height: 300px;
     font-size: 20px;
+    box-shadow: var(--root-box-shadow);
 
     .rootdisplay {
         width: 100%;

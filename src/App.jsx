@@ -23,7 +23,7 @@ function App() {
   const [boardMoveDisabled, setBoardMoveDisabled] = useState(false);
   const [boardList, setBoardList] = useState([]);
   const [globalKey, setGlobalKey] = useState(1);
-  const [theme, setTheme] = useState('theme-chicago');
+  const [theme, setTheme] = useState('theme-bagenzo');
 
   //load and save
   //load default board & retrieve stored board list on startup

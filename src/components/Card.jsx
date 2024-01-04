@@ -147,9 +147,9 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                     }}
                     disableDragging={edit}
                     minWidth={500}
-                    minHeight={300}
-                    resizeGrid={[20, 20]}
-                    dragGrid={[20, 20]}
+                    minHeight={250}
+                    resizeGrid={[50, 50]}
+                    dragGrid={[50, 50]}
                     onMouseDown={() => setBoardMoveDisabled(true)}
                     onClick={() => setBoardMoveDisabled(false)}
                     onDragStop={updateCardPos}
@@ -212,8 +212,8 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                 disableDragging={edit}
                 minWidth={40}
                 minHeight={40}
-                resizeGrid={[20, 20]}
-                dragGrid={[20, 20]}
+                resizeGrid={[50, 50]}
+                dragGrid={[50, 50]}
                 onMouseDown={() => setBoardMoveDisabled(true)}
                 onClick={() => setBoardMoveDisabled(false)}
                 onDragStop={updateCardPos}

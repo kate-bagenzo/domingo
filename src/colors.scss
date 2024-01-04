@@ -1,8 +1,12 @@
+
 //default
 * {
     --card-width: 10rem;
     --card-height: 10rem;
+
 }
+$primary-card-color: var(--primary-card-color);
+
 
 //domingo
 .theme-domingo-light {
@@ -27,6 +31,36 @@
 
 .theme-domingo-dark {
     
+}
+
+//bagenzo
+.theme-bagenzo {
+    --primary-font: 'Inconsolata';
+    --secondary-font: 'Inter';
+
+    --primary-card-color: #ffffff;
+    --editable-card-color: #e0e0e0;
+    --card-border-outer: inset -1px -1px #ffffff,
+    inset 1px 1px #ffffff;
+    --card-border-inner: inset -2px -2px #ffffff,
+    inset 2px 2px #ffffff;
+    
+    --primary-text-color: #000000;
+    --secondary-text-color: #ffffff;
+
+    --primary-bg-color: #000000;
+    --primary-select-color: #b90000;
+
+    --toolbar-color:#c0c0c0;
+
+    --root-box-shadow: 10px 10px #8b0000;
+
+    --header-color: #b90000;
+
+    --note-color: #3e0000;
+    --note-text-color: #ffffff;
+    --note-box-shadow: 10px 10px #8b0000;
+    --note-border-radius: 0px;
 }
 
 //chicago

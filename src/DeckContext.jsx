@@ -11,8 +11,8 @@ export const getCardPosByMouse = (e) => {
     const offsetX = Number(transform[0].style.transform.match(reX)[1]);
     const offsetY = Number(transform[0].style.transform.match(reY) ? (transform[0].style.transform.match(reY)[1]) : (0));
     const cardPos = {
-        x: (Math.round((x - offsetX) / 20) * 20 - 100),
-        y: (Math.round((y - offsetY) / 20) * 20 - 100)
+        x: (Math.round((x - offsetX) / 50) * 50 - 100),
+        y: (Math.round((y - offsetY) / 50) * 50 - 100)
     }
     return cardPos;
 }
