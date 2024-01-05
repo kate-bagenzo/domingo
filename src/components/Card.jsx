@@ -42,24 +42,24 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
 
     //switch between boards
     const handleBoardSwitch = (e) => {
-        let newDeck = [{
-            key: 'new board:' + 0,
-            localKey: 0,
-            cardPosX: 0,
-            cardPosY: 0,
-            cardWidth: 500,
-            cardHeight: 300,
-            cardStyle: 'card-root',
-            rootName: 'new board',
-            rootAuthor: 'anonymous'
-        }];
-
         if (e.target.value == 'new board') {
+            const newDeck = [{
+                key: 'new board:' + 0,
+                localKey: 0,
+                cardPosX: 0,
+                cardPosY: 0,
+                cardWidth: 500,
+                cardHeight: 300,
+                cardStyle: 'card-root',
+                rootName: 'new board',
+                rootAuthor: 'anonymous'
+            }];
             setDeck(newDeck);
+            setEdit(true);
         } else {
             localforage.getItem(e.target.value).then((deck) => setDeck(JSON.parse(deck)));
+            setEdit(false);
         }
-        setEdit(false);
         setBoardMoveDisabled(false);
     }
 
@@ -210,8 +210,8 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                     height: cardHeight,
                 }}
                 disableDragging={edit}
-                minWidth={40}
-                minHeight={40}
+                minWidth={200}
+                minHeight={200}
                 resizeGrid={[50, 50]}
                 dragGrid={[50, 50]}
                 onMouseDown={() => setBoardMoveDisabled(true)}
