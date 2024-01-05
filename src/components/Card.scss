@@ -208,3 +208,21 @@ main {
         font-style: italic;
     }
 }
+
+button, input[type=submit], select {
+    color: $button-text-color;
+    background-color: $button-bg;
+    font-family: $button-font;
+    border: $button-border;
+
+    &:hover {
+        background-color: $button-hover;
+    }
+    &:active {
+        background-color: $button-active;
+    }
+}
+
+input[type=text] {
+    font-family: $button-font;
+}

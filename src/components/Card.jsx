@@ -31,13 +31,13 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
             draft[0].rootName = e.target.rootName.value;
             draft[0].rootAuthor = e.target.rootAuthor.value;
 
-        }))
+        }));
         if (oldDeckName != e.target.rootName.value) {
             localforage.removeItem(oldDeckName);
         }
         setEdit(false);
         setBoardMoveDisabled(false);
-        localforage.keys().then((keys) => setBoardList(keys));
+        setBoardList(boardList.concat(e.target.rootName.value));
     }
 
     //switch between boards

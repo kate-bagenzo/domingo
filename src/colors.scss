@@ -6,6 +6,7 @@
 
 }
 
+//sass vars
 $primary-card-color: var(--primary-card-color);
 $editable-card-color: var(--editable-card-color);
 
@@ -32,6 +33,13 @@ $note-border-radius: var(--note-border-radius);
 $note-box-shadow: var(--note-box-shadow);
 
 $toolbar-color: var(--toolbar-color);
+
+$button-bg: var(--button-bg);
+$button-text-color: var(--button-text-color);
+$button-font: var(--button-font);
+$button-border: var(--button-border);
+$button-hover: var(--button-hover);
+$button-active: var(--button-active);
 
 //domingo (light)
 .theme-domingo-light {
@@ -89,6 +97,13 @@ $toolbar-color: var(--toolbar-color);
     --note-text-color: #ffffff;
     --note-box-shadow: 10px 10px #8b0000;
     --note-border-radius: 0px;
+
+    --button-bg: #8b0000;
+    --button-text-color: #fff;
+    --button-font: 'Inter';
+    --button-border: none;
+    --button-hover: #d40000;
+    --button-active: #3e0000;
 }
 
 //chicago
