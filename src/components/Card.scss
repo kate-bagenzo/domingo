@@ -18,6 +18,11 @@ main {
     font-size: 20px;
 }
 
+::selection {
+    background-color: $primary-select-color;
+    color: $secondary-text-color;
+}
+
 .card {
     font-family: $primary-font;
     width: 100%;
@@ -41,6 +46,7 @@ main {
         display: flex;
         justify-content: center;
         text-align: center;
+        outline: none;
     }
 
 }
