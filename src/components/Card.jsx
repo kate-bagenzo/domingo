@@ -4,10 +4,12 @@ import { DeckContext } from '../DeckContext';
 import { Rnd } from 'react-rnd';
 
 import { reX, reY } from '../PositionHelpers';
-import localforage from 'localforage';
+import localforage, { key } from 'localforage';
 import Compressor from 'compressorjs';
 import './Card.scss';
 import './Card-Toolbar.scss';
+import Markdown from 'react-markdown';
+import rehypeHighlight from 'rehype-highlight';
 
 //the most basic type of card, includes all editable text/image cards
 function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, cardText, cardImage, cardDate, rootName, rootAuthor }) {
@@ -49,7 +51,7 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                 cardPosX: 0,
                 cardPosY: 0,
                 cardWidth: 500,
-                cardHeight: 300,
+                cardHeight: 200,
                 cardStyle: 'card-root',
                 rootName: 'new board',
                 rootAuthor: 'anonymous'
@@ -249,7 +251,7 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                     <div onDoubleClick={handleEdit} className={`card ${cardStyle}`} ref={cardRef}>
                         {cardStyle == 'card-diary' ? (<><h3>{(cardDate).toLocaleString('default', { month: 'long', day: 'numeric' })}</h3>
                             <time>{(cardDate).toLocaleTimeString('default', { hour12: true, timeStyle: 'short' })}</time></>) : (null)}
-                        {cardStyle == 'card-image' ? (<img src={cardImage}></img>) : <>{cardText}</>}
+                        {cardStyle == 'card-image' ? (<img src={cardImage}></img>) : <Markdown disallowedElements={['img']}>{cardText}</Markdown>}
                     </div>
                 )}
             </Rnd >

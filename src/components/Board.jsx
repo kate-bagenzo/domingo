@@ -30,7 +30,7 @@ function Board() {
                 ref={boardRef}
             >
                 <TransformComponent>
-                    <ul>
+                    <ul id="cardstack">
                         {deck.map(i => <Card
                             rootName={i.rootName}
                             rootAuthor={i.rootAuthor}

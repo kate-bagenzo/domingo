@@ -30,12 +30,48 @@ main {
 
     user-select: none;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
     padding: 1rem;
     overflow: hidden;
     font-size: 16px;
     white-space: pre-line;
     color: $primary-text-color;
+
+    h1,h2,h3,h4,h5,h6 {
+        text-align: center;
+    }
+
+    h1,h2,h3,h4,h5,h6,
+    p, pre, blockquote {
+        margin: 0;
+    }
+
+    hr {
+        width: 100%;
+    }
+
+    a {
+        color: $button-bg;
+        &:hover {
+            color: $button-hover;
+        }
+        &:active {
+            color: $button-active;
+        }
+
+    }
+
+    pre,code {
+        background-color: $editable-card-color;
+        font-family: 'monospace';
+    }
+
+
+    blockquote {
+        padding-left: 1rem;
+        border-left: 2px solid $primary-text-color;
+    }
 
     textarea {
         font-family: $primary-font;
@@ -47,6 +83,7 @@ main {
         justify-content: center;
         text-align: center;
         outline: none;
+        overflow-x: hidden;
     }
 
 }
@@ -63,6 +100,8 @@ main {
 }
 
 .card-header {
+    align-items: center;
+    justify-content: center;
     font-family: $secondary-font;
     z-index: 2;
     background-color: $header-color;
@@ -163,12 +202,14 @@ main {
 }
 
 .card-root {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-end;
     font-family: $secondary-font;
     background-color: $header-color;
     border: $root-border;
-    color: white;
-    align-items: flex-end;
-    justify-content: flex-end;
+    color: $secondary-text-color;
     gap: 0.5rem;
     height: 200px;
     font-size: 20px;

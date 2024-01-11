@@ -15,7 +15,7 @@ function App() {
     cardPosX: 0,
     cardPosY: 0,
     cardWidth: 500,
-    cardHeight: 300,
+    cardHeight: 200,
     cardStyle: 'card-root',
     rootName: 'domingo guide',
     rootAuthor: 'anonymous'
