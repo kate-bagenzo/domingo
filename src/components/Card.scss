@@ -142,9 +142,14 @@ main {
     font-family: monospace;
     border: 1px solid white;
 
+    pre, code {
+        background-color: black;
+    }
+
     textarea {
         background-color: black;
         color: white;
+        font-family: 'monospace';
     }
 }
 

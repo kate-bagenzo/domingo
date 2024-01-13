@@ -10,7 +10,7 @@ import './App.scss';
 function App() {
   //state
   const [deck, setDeck] = useState([{
-    key: `domingo guide:${0}`,
+    key: `domingo guide`,
     localKey: 0,
     cardPosX: 0,
     cardPosY: 0,
@@ -22,7 +22,7 @@ function App() {
   }]);
   const [boardMoveDisabled, setBoardMoveDisabled] = useState(false);
   const [boardList, setBoardList] = useState([]);
-  const [globalKey, setGlobalKey] = useState(1);
+  const [globalKey, setGlobalKey] = useState(100);
   const [theme, setTheme] = useState('theme-bagenzo');
 
   //load and save
@@ -57,8 +57,8 @@ function App() {
     setGlobalKey(nextKey);
 
     setDeck(deck.concat({
-      key: (`${deck[0].rootName}:${nextKey}`),
-      localKey: `${deck[0].rootName}:${nextKey}`,
+      key: nextKey,
+      localKey: nextKey,
       cardPosX: cardPos.x,
       cardPosY: cardPos.y,
       cardWidth: 200,
@@ -88,7 +88,7 @@ function App() {
   return (
     <>
       <main className={theme}>
-        <DeckContext.Provider value={{ deck, setDeck, addCard, getCardPosByMouse, boardMoveDisabled, setBoardMoveDisabled, boardList, setBoardList }}>
+        <DeckContext.Provider value={{ deck, setDeck, addCard, getCardPosByMouse, boardMoveDisabled, setBoardMoveDisabled, boardList, setBoardList, globalKey, setGlobalKey }}>
           <aside onDoubleClick={addCard}>
             <Board></Board>
           </aside>

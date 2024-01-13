@@ -13,7 +13,7 @@ import rehypeHighlight from 'rehype-highlight';
 
 //the most basic type of card, includes all editable text/image cards
 function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, cardText, cardImage, cardDate, rootName, rootAuthor }) {
-    const { deck, setDeck, setBoardMoveDisabled, boardList, setBoardList } = useContext(DeckContext);
+    const { deck, setDeck, setBoardMoveDisabled, boardList, setBoardList, globalKey, setGlobalKey } = useContext(DeckContext);
     const [edit, setEdit] = useState(false);
     const cardRef = useRef(null);
     const textRef = useRef(null);
@@ -22,31 +22,55 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
     const handleBoardEdit = (e) => {
         e.preventDefault();
         const oldDeckName = deck[0].rootName;
+        const oldAuthor = deck[0].rootAuthor;
+        
+        //no board can be named domingo guide
         if (e.target.rootName.value == 'domingo guide') {
             alert('You can\'t overwrite the default board!');
             setEdit(false);
             setBoardMoveDisabled(false);
             return;
         }
-        setDeck(produce(draft => {
-            draft[0].key = e.target.rootName.value + ':' + 0;
-            draft[0].rootName = e.target.rootName.value;
-            draft[0].rootAuthor = e.target.rootAuthor.value;
 
-        }));
-        if (oldDeckName != e.target.rootName.value) {
-            localforage.removeItem(oldDeckName);
+        //rename author
+        if (oldAuthor != e.target.rootAuthor.value) {
+            setDeck(produce(draft => {
+                draft[0].rootAuthor = e.target.rootAuthor.value;
+    
+            }));
         }
+
+        //rename board
+        // update name & author
+        if (oldDeckName != e.target.rootName.value) {
+            setDeck(produce(draft => {
+                draft[0].rootName = e.target.rootName.value;
+    
+            }));
+            // remove old name from storage
+            localforage.removeItem(oldDeckName);
+            // replace old name in board list
+            const nextBoard = boardList.map(board => {
+                if (board == oldDeckName) {
+                    return e.target.rootName.value;
+                } else {
+                    return board;
+                }
+            });
+            setBoardList(nextBoard);
+        }
+
         setEdit(false);
         setBoardMoveDisabled(false);
-        setBoardList(boardList.concat(e.target.rootName.value));
     }
 
     //switch between boards
     const handleBoardSwitch = (e) => {
         if (e.target.value == 'new board') {
+            const nextKey = globalKey + 1;
+            setGlobalKey(nextKey);
             const newDeck = [{
-                key: 'new board:' + 0,
+                key: nextKey,
                 localKey: 0,
                 cardPosX: 0,
                 cardPosY: 0,
@@ -251,7 +275,9 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                     <div onDoubleClick={handleEdit} className={`card ${cardStyle}`} ref={cardRef}>
                         {cardStyle == 'card-diary' ? (<><h3>{(cardDate).toLocaleString('default', { month: 'long', day: 'numeric' })}</h3>
                             <time>{(cardDate).toLocaleTimeString('default', { hour12: true, timeStyle: 'short' })}</time></>) : (null)}
-                        {cardStyle == 'card-image' ? (<img src={cardImage}></img>) : <Markdown disallowedElements={['img']}>{cardText}</Markdown>}
+                        {cardStyle == 'card-image' ? (<img src={cardImage}></img>) : <></>}
+                        {cardStyle == 'card-code' ? (<pre><code>{cardText}</code></pre>)
+                        : (<Markdown disallowedElements={['img']}>{cardText}</Markdown>)}
                     </div>
                 )}
             </Rnd >
