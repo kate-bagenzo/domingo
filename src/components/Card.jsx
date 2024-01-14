@@ -10,11 +10,13 @@ import './Card.scss';
 import './Card-Toolbar.scss';
 import Markdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
+import ColorPicker from './ColorPicker';
 
 //the most basic type of card, includes all editable text/image cards
-function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, cardText, cardImage, cardDate, rootName, rootAuthor }) {
+function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, cardText, cardImage, cardDate, cardBg, cardFg, rootName, rootAuthor }) {
     const { deck, setDeck, setBoardMoveDisabled, boardList, setBoardList, globalKey, setGlobalKey } = useContext(DeckContext);
     const [edit, setEdit] = useState(false);
+    const [colorBar, setColorBar] = useState(0);
     const cardRef = useRef(null);
     const textRef = useRef(null);
 
@@ -104,6 +106,7 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
             }));
         }
         setEdit(!edit);
+        setColorBar(0);
     }
 
     // create new deck w/different card image
@@ -265,6 +268,7 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                             onClick={(e) => e.stopPropagation()}
                             onDoubleClick={(e) => e.stopPropagation()}
                             ref={cardRef}
+                            style={{backgroundColor: cardBg, color: cardFg}}
                         >
                             {cardStyle == 'card-image' ? (
                                 <div>
@@ -280,13 +284,13 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                         </div>
                         <div className='card-toolbar' onDoubleClick={(e) => e.stopPropagation()}>
                             <button onClick={updateCardData}>save</button>
-                            <button>bg color</button>
-                            <button>text color</button>
+                            {colorBar == 0 ||  colorBar == 1 ? <ColorPicker labelText={'bg color'} target={'cardBg'} localKey={localKey} colorBar={colorBar} setColorBar={setColorBar} /> : <button disabled>bg color</button> }
+                            {colorBar == 0 || colorBar == 2 ? <ColorPicker labelText={'text color'} target={'cardFg'} localKey={localKey} colorBar={colorBar} setColorBar={setColorBar} /> : <button type='button' disabled>text color</button> }
                             <button onClick={deleteCard}>delete</button>
                         </div>
                     </>
                 ) : (
-                    <div onDoubleClick={handleEdit} className={`card ${cardStyle}`} ref={cardRef} >
+                    <div onDoubleClick={handleEdit} className={`card ${cardStyle}`} ref={cardRef} style={{backgroundColor: cardBg, color: cardFg}}>
                         {cardStyle == 'card-diary' ? (<><h3>{(cardDate).toLocaleString('default', { month: 'long', day: 'numeric' })}</h3>
                             <time>{(cardDate).toLocaleTimeString('default', { hour12: true, timeStyle: 'short' })}</time></>) : (null)}
                         {cardStyle == 'card-image' ? (<img src={cardImage}></img>) : <></>}

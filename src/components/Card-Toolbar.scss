@@ -21,5 +21,11 @@
 
     button {
         width: 90%;
+
+        &:disabled {
+            background-color: $editable-card-color;
+            cursor: not-allowed;
+        }
     }
+    
 }

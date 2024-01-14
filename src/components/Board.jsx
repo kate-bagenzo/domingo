@@ -44,6 +44,8 @@ function Board() {
                             cardText={i.cardText}
                             cardImage={i.cardImage}
                             cardDate={i.cardDate ? (new Date(i.cardDate)) : (undefined)}
+                            cardBg={i.cardBg}
+                            cardFg={i.cardFg}
                         ></Card>)}
                     </ul>
                 </TransformComponent>

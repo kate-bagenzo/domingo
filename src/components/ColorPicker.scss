@@ -1,0 +1,36 @@
+@import '../colors.scss';
+
+* {
+    box-sizing: border-box;
+}
+
+.colorpicker {
+    z-index: 100;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 110px;
+    bottom: 0px;
+    width: 100px;
+    height: 200px;
+    background-color: $primary-card-color;
+    box-shadow: $card-border-outer, $card-border-inner;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+
+    button {
+        box-shadow: $card-border-outer, $card-border-inner;
+        width: 25px;
+        height: 25px;
+        &:hover {
+            cursor: pointer;
+        }
+        strong {
+            color: $secondary-text-color;
+            font-size: 1rem;
+        }
+    }
+}
+
