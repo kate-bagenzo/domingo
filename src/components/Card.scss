@@ -105,8 +105,8 @@ main {
     font-family: $secondary-font;
     z-index: 2;
     background-color: $header-color;
-    color: white;
-    border: 1px solid white;
+    color: $secondary-text-color;
+    border: 1px solid $secondary-text-color;
     align-items: center;
     font-size: 3rem;
     text-align: center;

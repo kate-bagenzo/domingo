@@ -161,6 +161,15 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
         }));
     }
 
+    // export board data
+    const exportBoard = () => {
+        const exportedBoard = JSON.stringify(deck);
+        const fs = require('fs');
+        fs.writeFile(`${deck[0].rootName}.domingo`, exportBoard, () => {
+            console.log('exported');
+        });
+    }
+
     if (cardStyle == 'card-root') {
         return (
             <>
@@ -209,6 +218,11 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                                         {boardList ? (boardList.map(i => <option key={i} value={i}>{i}</option>)) : (null)}
                                         <option value='new board'>new...</option>
                                     </select>
+                                        <h2>file control</h2>
+                                    <section>
+                                        <button>import</button>
+                                        <button>export</button>
+                                    </section>
                                 </div>)}
                         </div >
                     ) : (
@@ -272,7 +286,7 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                         </div>
                     </>
                 ) : (
-                    <div onDoubleClick={handleEdit} className={`card ${cardStyle}`} ref={cardRef}>
+                    <div onDoubleClick={handleEdit} className={`card ${cardStyle}`} ref={cardRef} >
                         {cardStyle == 'card-diary' ? (<><h3>{(cardDate).toLocaleString('default', { month: 'long', day: 'numeric' })}</h3>
                             <time>{(cardDate).toLocaleTimeString('default', { hour12: true, timeStyle: 'short' })}</time></>) : (null)}
                         {cardStyle == 'card-image' ? (<img src={cardImage}></img>) : <></>}
