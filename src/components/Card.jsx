@@ -167,10 +167,58 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
     // export board data
     const exportBoard = () => {
         const exportedBoard = JSON.stringify(deck);
-        const fs = require('fs');
-        fs.writeFile(`${deck[0].rootName}.domingo`, exportBoard, () => {
-            console.log('exported');
-        });
+        const fileName = `${deck[0].rootName}.domingo`
+        let element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(exportedBoard));
+        element.setAttribute('download', fileName);
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+        setBoardMoveDisabled(false);
+    }
+
+    const importBoard = () => {
+        let element = document.createElement('input');
+        element.setAttribute('type', 'file');
+        element.setAttribute('accept', '.domingo');
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        const handleImport = () => {
+            if (element.files.length > 0) {
+                const board = element.files[0];
+                const reader = new FileReader();
+                
+                const onReaderLoad = (e) => {
+                    const regenerate = JSON.parse(e.target.result);
+                    let completed = [];
+                    let importKey = globalKey;
+                    for (let i = 0; i < regenerate.length; i++) {
+                        const target = regenerate[i];
+                        importKey = importKey + 1;
+                        target.key = importKey;
+                        target.localKey = importKey;
+                        completed = completed.concat(target);
+                    }
+                    setGlobalKey(importKey);
+                    setDeck(completed);
+                    setBoardMoveDisabled(false);
+                }
+                reader.onload = onReaderLoad;
+                reader.readAsText(board);
+            }
+        }
+        element.addEventListener('change', handleImport, false);
+        element.click();
+
+        document.body.removeChild(element);
+
+
     }
 
     if (cardStyle == 'card-root') {
@@ -221,10 +269,10 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                                         {boardList ? (boardList.map(i => <option key={i} value={i}>{i}</option>)) : (null)}
                                         <option value='new board'>new...</option>
                                     </select>
-                                        <h2>file control</h2>
+                                        <label>file control:</label>
                                     <section>
-                                        <button>import</button>
-                                        <button>export</button>
+                                        <button onClick={importBoard}>import</button>
+                                        <button onClick={exportBoard}>export</button>
                                     </section>
                                 </div>)}
                         </div >
