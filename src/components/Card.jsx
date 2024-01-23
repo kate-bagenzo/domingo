@@ -182,6 +182,7 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
     }
 
     const importBoard = () => {
+        setBoardMoveDisabled(false);
         let element = document.createElement('input');
         element.setAttribute('type', 'file');
         element.setAttribute('accept', '.domingo');
@@ -221,6 +222,14 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
 
     }
 
+    const handleRootBoardEdit = () => {
+        if (edit) {
+            setBoardMoveDisabled(false);
+        } else {
+            setBoardMoveDisabled(true);
+        }
+    }
+
     if (cardStyle == 'card-root') {
         return (
             <>
@@ -243,7 +252,6 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                 >
                     {edit ? (
                         <div className={`card ${cardStyle}`}
-                            onClick={(e) => e.stopPropagation()}
                             onDoubleClick={(e) => e.stopPropagation()}
                             ref={cardRef}
                         >
@@ -251,10 +259,10 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                                 <div className='controlpanel'>
                                     <form onSubmit={handleBoardEdit}>
                                         <label htmlFor='rootName'>board name:</label>
-                                        <input type='text' id='rootName' maxLength={20} defaultValue={rootName}></input>
+                                        <input type='text' id='rootName' onMouseDown={() => setBoardMoveDisabled(true)} onClick={() => setBoardMoveDisabled(false)} maxLength={20} defaultValue={rootName}></input>
 
                                         <label htmlFor='rootAuthor'>author:</label>
-                                        <input type='text' id='rootAuthor' maxLength={20} defaultValue={rootAuthor}></input>
+                                        <input type='text' id='rootAuthor' onMouseDown={() => setBoardMoveDisabled(true)} onClick={() => setBoardMoveDisabled(false)} maxLength={20} defaultValue={rootAuthor}></input>
 
                                         <input type='submit' value='save board'></input>
                                     </form>
@@ -264,15 +272,15 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                             {rootName == 'new board' ? (null) : (
                                 <div className='controlpanel'>
                                     <label htmlFor='switchBoard'>switch board:</label>
-                                    <select id='switchBoard' onChange={handleBoardSwitch}>
+                                    <select onMouseDown={() => setBoardMoveDisabled(true)} onClick={() => setBoardMoveDisabled(false)} id='switchBoard' onChange={handleBoardSwitch}>
                                         <option value=''>select...</option>
                                         {boardList ? (boardList.map(i => <option key={i} value={i}>{i}</option>)) : (null)}
                                         <option value='new board'>new...</option>
                                     </select>
                                         <label>file control:</label>
                                     <section>
-                                        <button onClick={importBoard}>import</button>
-                                        <button onClick={exportBoard}>export</button>
+                                        <button onMouseDown={() => setBoardMoveDisabled(true)} onClick={importBoard}>import</button>
+                                        <button onMouseDown={() => setBoardMoveDisabled(true)} onClick={exportBoard}>export</button>
                                     </section>
                                 </div>)}
                         </div >
@@ -339,7 +347,7 @@ function Card({ localKey, cardPosX, cardPosY, cardStyle, cardWidth, cardHeight, 
                     </>
                 ) : (
                     <div onDoubleClick={handleEdit} className={`card ${cardStyle}`} ref={cardRef} style={{backgroundColor: cardBg, color: cardFg}}>
-                        {cardStyle == 'card-diary' ? (<><h3>{(cardDate).toLocaleString('default', { month: 'long', day: 'numeric' })}</h3>
+                        {cardStyle == 'card-diary' ? (<><h3 className='diaryDate'>{(cardDate).toLocaleString('default', { month: 'long', day: 'numeric' })}</h3>
                             <time>{(cardDate).toLocaleTimeString('default', { hour12: true, timeStyle: 'short' })}</time></>) : (null)}
                         {cardStyle == 'card-image' ? (<img src={cardImage}></img>) : <></>}
                         {cardStyle == 'card-code' ? (<pre><code>{cardText}</code></pre>)
